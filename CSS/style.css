@@ -1,0 +1,104 @@
+/* Basic Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f0f8ff; /* Light blue background */
+    color: #333; /* Dark text for readability */
+}
+
+/* Main Content Styles */
+.mainContent {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Content Box */
+#contentBox {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#contentBox img {
+    width: 150px; /* Adjust as needed */
+    height: auto;
+    border-radius: 50%; /* Circular image */
+    margin-bottom: 10px;
+}
+
+.controlBox h1 {
+    margin-bottom: 20px;
+}
+
+.controlBox button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Blue button */
+    color: white;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.controlBox button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* User Panel Styles */
+#userPanel {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    overflow: hidden;
+}
+
+#userPanel > div {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr) 80px; /* Six columns for user details + one for actions */
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    align-items: center; /* Vertically align grid items */
+    min-height: 50px; /* Set a minimum height for each row */
+}
+#userPanel div:last-child {
+
+    justify-content: space-evenly;
+    align-items: center;
+}
+#userPanel > div > p {
+    margin: auto 0; /* Center content vertically within each cell */
+}
+
+#userPanel > div:first-child {
+    background-color: #007bff; /* Blue header */
+    color: white;
+    font-weight: bold;
+}
+
+#userPanel a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#userPanel img {
+    width: 20px;
+    /* Center the image horizontally in its container */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    #userPanel > div {
+        grid-template-columns: repeat(3, 1fr) 80px; /* Adjust columns for smaller screens, keep actions column */
+    }
+}
+
