@@ -1,0 +1,13 @@
+2023-12-04 21:00:10: == Sync Started by User Command
+2023-12-04 21:00:10: ConnectCloned connected to file:///C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals
+2023-12-04 21:00:10: ConnectCloned connected to file:///C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals
+2023-12-04 21:00:10: ConnectCloned connected to file:///C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals
+2023-12-04 21:00:10: ConnectCloned connected to file:///C:/wamp64/www/Stream
+2023-12-04 21:00:10: ConnectCloned connected to file:///C:/wamp64/www/Stream
+2023-12-04 21:00:10: ConnectCloned connected to file:///C:/wamp64/www/Stream
+2023-12-04 21:00:10: Copy Over 'C:/wamp64/www/Stream/.git/FETCH_HEAD' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/FETCH_HEAD' (121) (User Action)
+2023-12-04 21:00:11: Copy Over 'C:/wamp64/www/Stream/.git/refs/remotes/origin/main' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/refs/remotes/origin/main' (41) (User Action)
+2023-12-04 21:00:11: Copy Over 'C:/wamp64/www/Stream/.git/logs/refs/remotes/origin/main' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/logs/refs/remotes/origin/main' (302) (User Action)
+2023-12-04 21:00:11: Save State File C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/_gsdata_/_file_state_v4._gs
+2023-12-04 21:00:11: Save State File C:/wamp64/www/Stream/_gsdata_/_file_state_v4._gs
+2023-12-04 21:00:11: == Sync Complete. Time: 00:00:01, Speed: 0.00/s, OK: 3, Errors: 0

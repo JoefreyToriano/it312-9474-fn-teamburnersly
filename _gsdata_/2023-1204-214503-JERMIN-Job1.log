@@ -1,0 +1,39 @@
+2023-12-04 21:45:04: -- Analysis Started by On File Change Incremental
+2023-12-04 21:45:04: Changes: 19, Conflicts: 0, CopyTime: 0, FixState: 0, Errors: 0, All: 168
+2023-12-04 21:45:04: Right to Left: Copy File: 19 
+2023-12-04 21:45:04: == Sync Started by On File Change Incremental
+2023-12-04 21:45:04: ConnectCloned connected to file:///C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals
+2023-12-04 21:45:04: ConnectCloned connected to file:///C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals
+2023-12-04 21:45:04: ConnectCloned connected to file:///C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals
+2023-12-04 21:45:04: ConnectCloned connected to file:///C:/wamp64/www/Stream
+2023-12-04 21:45:04: ConnectCloned connected to file:///C:/wamp64/www/Stream
+2023-12-04 21:45:04: ConnectCloned connected to file:///C:/wamp64/www/Stream
+2023-12-04 21:45:05: Copy Over 'C:/wamp64/www/Stream/.git/index' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/index' (2,886)
+2023-12-04 21:45:05: Copy Over 'C:/wamp64/www/Stream/.git/logs/HEAD' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/logs/HEAD' (869)
+2023-12-04 21:45:05: Create Folder C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/22
+2023-12-04 21:45:05: Create Folder C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/2d
+2023-12-04 21:45:05: Create Folder C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/5a
+2023-12-04 21:45:05: Copy Over 'C:/wamp64/www/Stream/.git/COMMIT_EDITMSG' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/COMMIT_EDITMSG' (48)
+2023-12-04 21:45:05: Copy New 'C:/wamp64/www/Stream/.git/objects/2d/3aab434911d0580b6f7d71e948247584023637' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/2d/3aab434911d0580b6f7d71e948247584023637' (189)
+2023-12-04 21:45:05: Copy New 'C:/wamp64/www/Stream/.git/objects/22/de75e85bd6d4bc8420040ba2abb9673511001e' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/22/de75e85bd6d4bc8420040ba2abb9673511001e' (388)
+2023-12-04 21:45:05: Copy New 'C:/wamp64/www/Stream/.git/objects/5a/4b0347b3c3c26afc8d7e461837a673f2594d17' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/5a/4b0347b3c3c26afc8d7e461837a673f2594d17' (193)
+2023-12-04 21:45:05: Create Folder C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/77
+2023-12-04 21:45:05: Create Folder C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/ae
+2023-12-04 21:45:05: Create Folder C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/88
+2023-12-04 21:45:05: Create Folder C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/ff
+2023-12-04 21:45:05: Copy New 'C:/wamp64/www/Stream/.git/objects/77/745b1cb34bff469578d3f46a9ae5bc4a0a1a80' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/77/745b1cb34bff469578d3f46a9ae5bc4a0a1a80' (264)
+2023-12-04 21:45:05: Copy New 'C:/wamp64/www/Stream/.git/objects/88/5552109d11be6b619f4295d484cf8b42eb4f86' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/88/5552109d11be6b619f4295d484cf8b42eb4f86' (45)
+2023-12-04 21:45:05: Copy New 'C:/wamp64/www/Stream/.git/objects/ae/d6926186e6354632d021a6de6cfc892b82aa50' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/ae/d6926186e6354632d021a6de6cfc892b82aa50' (55)
+2023-12-04 21:45:05: Close Modified Folder (mod-time, acl): /.git/objects/2d
+2023-12-04 21:45:05: Close Modified Folder (mod-time, acl): /.git/objects/22
+2023-12-04 21:45:05: Close Modified Folder (mod-time, acl): /.git/objects/5a
+2023-12-04 21:45:05: Close Modified Folder (mod-time, acl): /.git/objects/88
+2023-12-04 21:45:05: Close Modified Folder (mod-time, acl): /.git/objects/77
+2023-12-04 21:45:05: Close Modified Folder (mod-time, acl): /.git/objects/ae
+2023-12-04 21:45:05: Copy New 'C:/wamp64/www/Stream/.git/objects/ff/3631d862eb239a89c29822611687d99d31b2d6' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/ff/3631d862eb239a89c29822611687d99d31b2d6' (147)
+2023-12-04 21:45:05: Close Modified Folder (mod-time, acl): /.git/objects/ff
+2023-12-04 21:45:05: Copy Over 'C:/wamp64/www/Stream/.git/refs/heads/main' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/refs/heads/main' (41)
+2023-12-04 21:45:05: Copy Over 'C:/wamp64/www/Stream/.git/logs/refs/heads/main' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/logs/refs/heads/main' (682)
+2023-12-04 21:45:05: Save State File C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/_gsdata_/_file_state_v4._gs
+2023-12-04 21:45:05: Save State File C:/wamp64/www/Stream/_gsdata_/_file_state_v4._gs
+2023-12-04 21:45:05: == Sync Complete. Time: 00:00:02, Speed: 0.00/s, OK: 19, Errors: 0

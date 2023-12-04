@@ -1,0 +1,9 @@
+2023-12-04 21:16:25: -- Analysis Started by On File Change Incremental
+2023-12-04 21:16:25: Changes: 1, Conflicts: 0, CopyTime: 0, FixState: 0, Errors: 0, All: 150
+2023-12-04 21:16:25: Right to Left: Copy File: 1 
+2023-12-04 21:16:25: == Sync Started by On File Change Incremental
+2023-12-04 21:16:25: Start only 1 threads, limited by tasks to run
+2023-12-04 21:16:25: Copy Over 'C:/wamp64/www/Stream/PHP/update.php' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/PHP/update.php' (4,938)
+2023-12-04 21:16:25: Save State File C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/_gsdata_/_file_state_v4._gs
+2023-12-04 21:16:25: Save State File C:/wamp64/www/Stream/_gsdata_/_file_state_v4._gs
+2023-12-04 21:16:25: == Sync Complete. Time: 00:00:01, Speed: 0.00/s, OK: 1, Errors: 0

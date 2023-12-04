@@ -1,0 +1,11 @@
+2023-12-04 20:55:18: -- Analysis Started by User Command
+2023-12-04 20:55:18: L: Reading State File C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/_gsdata_/_file_state_v4._gs
+2023-12-04 20:55:18: R: Reading State File C:/wamp64/www/Stream/_gsdata_/_file_state_v4._gs
+2023-12-04 20:55:18: /.git/FETCH_HEAD: L:TimeSize<>; R:TimeSize<>; Conflict: File Modified on Both Sides
+2023-12-04 20:55:18: /.git/logs/refs/remotes/origin/main: L:TimeSize<>; R:TimeSize<>; Conflict: File Modified on Both Sides
+2023-12-04 20:55:18: /.git/refs/remotes/origin/main: L:TimeSize<>; R:TimeSize<>; Conflict: File Modified on Both Sides
+2023-12-04 20:55:18: Analyze has finished with Conflicts. Resolve Conflicts by selecting the correct sync direction, then click Sync
+2023-12-04 20:55:18: Changes: 35, Conflicts: 3, CopyTime: 0, FixState: 17, Errors: 0, All: 150
+2023-12-04 20:55:18: Left to Right: Copy File: 21 Delete File: 1 
+2023-12-04 20:55:18: Right to Left: Copy File: 10 
+2023-12-04 20:55:18: -- Analysis Complete. Time 00:00:00, Speed: Many files/s

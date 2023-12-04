@@ -1,0 +1,15 @@
+2023-12-04 21:43:52: -- Analysis Started by On File Change Incremental
+2023-12-04 21:43:52: Changes: 2, Conflicts: 0, CopyTime: 0, FixState: 0, Errors: 0, All: 154
+2023-12-04 21:43:52: Right to Left: Copy File: 2 
+2023-12-04 21:43:52: == Sync Started by On File Change Incremental
+2023-12-04 21:43:52: Start only 2 threads, limited by tasks to run
+2023-12-04 21:43:52: ConnectCloned connected to file:///C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals
+2023-12-04 21:43:52: ConnectCloned connected to file:///C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals
+2023-12-04 21:43:52: ConnectCloned connected to file:///C:/wamp64/www/Stream
+2023-12-04 21:43:52: ConnectCloned connected to file:///C:/wamp64/www/Stream
+2023-12-04 21:43:53: Create Folder C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/89
+2023-12-04 21:43:53: Copy New 'C:/wamp64/www/Stream/.git/objects/89/9f12dbed383a30aebfb3215bbd7a85bc3d05ef' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/89/9f12dbed383a30aebfb3215bbd7a85bc3d05ef' (1,424)
+2023-12-04 21:43:53: Close Modified Folder (mod-time, acl): /.git/objects/89
+2023-12-04 21:43:53: Save State File C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/_gsdata_/_file_state_v4._gs
+2023-12-04 21:43:53: Save State File C:/wamp64/www/Stream/_gsdata_/_file_state_v4._gs
+2023-12-04 21:43:53: == Sync Complete. Time: 00:00:02, Speed: 0.00/s, OK: 2, Errors: 0
