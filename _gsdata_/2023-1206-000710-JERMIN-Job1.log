@@ -1,0 +1,29 @@
+2023-12-06 00:07:11: -- Analysis Started by On File Change Incremental
+2023-12-06 00:07:11: R: State File has changed, so re-read it: C:/wamp64/www/Stream/_gsdata_/_file_state_v4._gs
+2023-12-06 00:07:11: R: Reading State File C:/wamp64/www/Stream/_gsdata_/_file_state_v4._gs
+2023-12-06 00:07:11: R: State file does not exist: C:/wamp64/www/Stream/_gsdata_/_file_state_v4._gs
+2023-12-06 00:07:11: Changes: 11, Conflicts: 0, CopyTime: 0, FixState: 19, Errors: 0, All: 433
+2023-12-06 00:07:11: Left to Right: Copy File: 3 
+2023-12-06 00:07:11: Right to Left: Copy File: 8 
+2023-12-06 00:07:11: == Sync Started by On File Change Incremental
+2023-12-06 00:07:11: ConnectCloned connected to file:///C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals
+2023-12-06 00:07:11: ConnectCloned connected to file:///C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals
+2023-12-06 00:07:11: ConnectCloned connected to file:///C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals
+2023-12-06 00:07:11: ConnectCloned connected to file:///C:/wamp64/www/Stream
+2023-12-06 00:07:11: ConnectCloned connected to file:///C:/wamp64/www/Stream
+2023-12-06 00:07:11: ConnectCloned connected to file:///C:/wamp64/www/Stream
+2023-12-06 00:07:11: Copy Over 'C:/wamp64/www/Stream/.git/index' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/index' (12,355)
+2023-12-06 00:07:11: Copy Over 'C:/wamp64/www/Stream/.git/logs/HEAD' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/logs/HEAD' (1,438)
+2023-12-06 00:07:11: Copy Over 'C:/wamp64/www/Stream/.git/COMMIT_EDITMSG' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/COMMIT_EDITMSG' (86)
+2023-12-06 00:07:11: Copy New 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/MERGE_MODE' -> 'C:/wamp64/www/Stream/.git/MERGE_MODE' (0)
+2023-12-06 00:07:11: Copy New 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/MERGE_HEAD' -> 'C:/wamp64/www/Stream/.git/MERGE_HEAD' (41)
+2023-12-06 00:07:11: Create Folder C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/07
+2023-12-06 00:07:11: Copy Over 'C:/wamp64/www/Stream/.git/logs/refs/heads/main' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/logs/refs/heads/main' (1,251)
+2023-12-06 00:07:11: Copy New 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/MERGE_MSG' -> 'C:/wamp64/www/Stream/.git/MERGE_MSG' (155)
+2023-12-06 00:07:11: Copy New 'C:/wamp64/www/Stream/.git/objects/33/6e8bffbc03b11b0ba822a252aec005bc11e95a' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/33/6e8bffbc03b11b0ba822a252aec005bc11e95a' (248)
+2023-12-06 00:07:11: Copy New 'C:/wamp64/www/Stream/.git/objects/07/dfabd24447d8f3137070b9c3ebc53d7588d172' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/objects/07/dfabd24447d8f3137070b9c3ebc53d7588d172' (156)
+2023-12-06 00:07:11: Copy Over 'C:/wamp64/www/Stream/.git/refs/heads/main' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/.git/refs/heads/main' (41)
+2023-12-06 00:07:11: Close Modified Folder (mod-time, acl): /.git/objects/07
+2023-12-06 00:07:11: Save State File C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/_gsdata_/_file_state_v4._gs
+2023-12-06 00:07:11: Save State File C:/wamp64/www/Stream/_gsdata_/_file_state_v4._gs
+2023-12-06 00:07:11: == Sync Complete. Time: 00:00:01, Speed: 0.00/s, OK: 30, Errors: 0
