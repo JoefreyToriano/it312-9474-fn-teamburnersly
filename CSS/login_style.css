@@ -1,69 +1,108 @@
 /* login_style.css */
 
 body {
-    background-color: #f0f8ff; /* Light blue background */
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #1c3a83; /* Adjust the color to match your design */
+    color: #ffffff;
     margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%; /* Adjusts the width of the container to 80% of the viewport */
+    max-width: 1200px; /* Sets a maximum width */
+    margin: auto; /* Centers the container horizontally */
+    border-radius: 10px; /* Optional: Rounded corners for the container */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Optional: Adds shadow for depth */
+    padding: 20px;
+}
+
+.image-wrapper {
+    flex: 1; /* Allocates space for the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px 0 0 10px; /* Rounded corners on the left side */
+}
+
+.image-wrapper img {
+ width: 500px;
+ height: auto;
 }
 
 #login {
-    width: 400px; /* Adjusted width */
-    padding: 50px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Center-aligns the children */
-    height: 300px;
+    flex: 1; /* Allocates space for the login form */
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 0 10px 10px 0; /* Rounded corners on the right side */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
 }
 
-#error-message {
-    position: relative; /* Absolute position for the error message */
-    top: 10px; /* Position it near the top of the container */
-    left: 10px; /* Position it from the left */
-    right: 10px; /* Ensure it doesn't overflow the container */
-    color: red;
-    background-color: rgba(255, 255, 255, 0.9); /* Optional: make it slightly opaque */
-    padding: 5px;
-    text-align: center;
-    
-}
-#login h1 {
-    color: #333;
-    margin-bottom: 30px;
-}
-
-#login p {
-    color: #333;
-    margin-top: 0;
-    margin-bottom: 5px;
-    text-align: left;
+/* Styles for the login form elements */
+#login h1, #login p, #login input, #login button {
+    margin: 10px 0; /* Adds margin to space out elements */
+    color: black;
 }
 
 #login input[type="text"],
 #login input[type="password"] {
-    width: calc(100% - 20px); /* Full width minus padding */
-    padding: 10px;
-    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px 10px 10px 40px; /* Increased left padding to accommodate the icon */
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    /* Align text inside input */
+    height: 40px; /* Example height, adjust to match the size of your icon */
+}
+.input-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center; /* Aligns the icon and input field vertically */
 }
 
-#signin {
-    width: 100%;
-    padding: 10px;
-    background-color: #87CEFA; /* Light blue */
-    color: white;
+.input-wrapper .icon {
+    position: absolute;
+    left: 10px;
+    color: #333;
+    /* Adjust the size of the icon if needed */
+    font-size: 16px; /* Example size, adjust as needed */
+}
+#login button {
+ padding: 10px;
     border: none;
+    background-color: #1c3a83;
+    color: white;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    width:100%; /* Example width, adjust as needed */
 }
 
-#signin:hover {
-    background-color: #00BFFF; /* Darker light blue */
-}
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
 
+    .image-wrapper,
+    #login {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 10px;
+    }
+
+    .image-wrapper img {
+        max-width: 80%; /* Adjust the image size on smaller screens */
+    }
+}

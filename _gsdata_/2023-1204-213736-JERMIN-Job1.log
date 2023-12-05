@@ -1,9 +1,0 @@
-2023-12-04 21:37:37: -- Analysis Started by On File Change Incremental
-2023-12-04 21:37:37: Changes: 1, Conflicts: 0, CopyTime: 0, FixState: 0, Errors: 0, All: 150
-2023-12-04 21:37:37: Right to Left: Copy File: 1 
-2023-12-04 21:37:37: == Sync Started by On File Change Incremental
-2023-12-04 21:37:37: Start only 1 threads, limited by tasks to run
-2023-12-04 21:37:37: Copy Over 'C:/wamp64/www/Stream/CSS/update._style.css' -> 'C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/CSS/update._style.css' (2,973)
-2023-12-04 21:37:37: Save State File C:/Users/jermi/OneDrive/THIRD YEAR/Website Technology/Finals/_gsdata_/_file_state_v4._gs
-2023-12-04 21:37:37: Save State File C:/wamp64/www/Stream/_gsdata_/_file_state_v4._gs
-2023-12-04 21:37:37: == Sync Complete. Time: 00:00:01, Speed: 0.00/s, OK: 1, Errors: 0
