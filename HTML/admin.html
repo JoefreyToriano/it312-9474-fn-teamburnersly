@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/style.css">
-    <title>Document</title>
+    <title>User Management</title>
 </head>
 <body>
     <div class="mainContent">
@@ -17,9 +17,12 @@
             </div>
         </div>
 
-        <div id="userPanel">
-            
+        <div class="filterPanel">
+            <input type="text" id="searchInput" placeholder="Search by Name, Username, or Email">
+            <button id="searchButton">Search</button>
         </div>
+
+        <div id="userPanel"></div>
     </div>
     <script src="../JS/admin.js"></script>
 </body>

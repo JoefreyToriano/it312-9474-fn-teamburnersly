@@ -94,6 +94,30 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+.filterPanel {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.filterPanel input {
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.filterPanel button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #97acc3;
+    color: white;
+    cursor: pointer;
+}
+
+.filterPanel button:hover {
+    background-color: #65798f;
+}
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
