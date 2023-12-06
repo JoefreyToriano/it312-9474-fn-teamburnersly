@@ -85,20 +85,13 @@ function updateUserPanel(users, sortField = null, sortOrder = "asc") {
     aEdit.appendChild(iEdit);
     userDiv.appendChild(aEdit);
 
-    // Delete icon (using Font Awesome)
     var aDelete = document.createElement("a");
-    aDelete.href = "../PHP/delete.php?id=" + user.userid;
+    aDelete.dataset.userid = user.userid; // Store user ID in a data attribute
     var iDelete = document.createElement("i");
     iDelete.className = "fa fa-trash"; // Font Awesome trash icon
     aDelete.appendChild(iDelete);
     userDiv.appendChild(aDelete);
-    
-    aDelete.onclick = function () {
-      var confirmDelete = confirm("Are you sure you want to delete this user?");
-      if (confirmDelete) {
-        window.location.href = "../PHP/delete.php?id=" + this.dataset.userid;
-      }
-    };
+
 
     userPanel.appendChild(userDiv);
   });
@@ -134,3 +127,16 @@ document.addEventListener("DOMContentLoaded", function () {
     .addEventListener("click", applySearch);
   getUsers();
 });
+
+document
+  .getElementById("userPanel")
+  .addEventListener("click", function (event) {
+    if (event.target && event.target.matches(".fa-trash")) {
+      event.preventDefault(); // Prevent the default anchor action
+      var userId = event.target.closest("a").dataset.userid;
+      var confirmDelete = confirm("Are you sure you want to delete this user?");
+      if (confirmDelete) {
+        window.location.href = "../PHP/delete.php?id=" + userId;
+      }
+    }
+  });
