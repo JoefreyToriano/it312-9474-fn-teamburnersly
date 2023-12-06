@@ -59,13 +59,22 @@ body {
 }
 
 #userPanel > div {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr) 80px; /* Six columns for user details + one for actions */
+  display: grid;
+    grid-template-columns: repeat(7, 1fr) 40px 40px;
     text-align: center;
     padding: 10px;
     border-bottom: 1px solid #ddd;
     align-items: center; /* Vertically align grid items */
     min-height: 50px; /* Set a minimum height for each row */
+}
+#userPanel i {
+
+    font-size: 16px;
+    color: #007bff;
+    cursor: pointer;
+}
+#userPanel i:hover {
+    color: #0056b3;
 }
 #userPanel div:last-child {
 

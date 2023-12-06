@@ -43,10 +43,12 @@ function updateUserPanel(users, sortField = null, sortOrder = "asc") {
   var headers = {
     fname: "First Name",
     lname: "Last Name",
-    username: "User Name",
+    username: "Username",
     password: "Password",
     email: "Email",
     usertype: "User Type",
+    edit: "Edit", // Edit column header
+    delete: "Delete", // Delete column header
   };
 
   Object.keys(headers).forEach((key) => {
@@ -55,7 +57,9 @@ function updateUserPanel(users, sortField = null, sortOrder = "asc") {
     if (key === sortField && sortOrder) {
       p.innerHTML += sortOrder === "asc" ? " ↑" : " ↓";
     }
-    p.onclick = () => sortUsers(key);
+    if (key !== "edit" && key !== "delete") {
+      p.onclick = () => sortUsers(key);
+    }
     headerDiv.appendChild(p);
   });
   userPanel.appendChild(headerDiv);
@@ -73,25 +77,28 @@ function updateUserPanel(users, sortField = null, sortOrder = "asc") {
       }
     );
 
-    // Container for action icons
-    var actionsContainer = document.createElement("div");
-    // Delete icon
+    // Edit icon (using Font Awesome)
+    var aEdit = document.createElement("a");
+    aEdit.href = "../PHP/update.php?id=" + user.userid;
+    var iEdit = document.createElement("i");
+    iEdit.className = "fa-solid fa-pen-to-square"; // Font Awesome pencil icon
+    aEdit.appendChild(iEdit);
+    userDiv.appendChild(aEdit);
+
+    // Delete icon (using Font Awesome)
     var aDelete = document.createElement("a");
     aDelete.href = "../PHP/delete.php?id=" + user.userid;
-    var imgDelete = document.createElement("img");
-    imgDelete.src = "../MEDIA/Trash.png";
-    aDelete.appendChild(imgDelete);
-    actionsContainer.appendChild(aDelete);
-    // Update icon
-    var aUpdate = document.createElement("a");
-    aUpdate.href = "../PHP/update.php?id=" + user.userid;
-    var imgUpdate = document.createElement("img");
-    imgUpdate.src = "../MEDIA/Pencil.png";
-    aUpdate.appendChild(imgUpdate);
-    actionsContainer.appendChild(aUpdate);
-
-    // Append actions container to the userDiv
-    userDiv.appendChild(actionsContainer);
+    var iDelete = document.createElement("i");
+    iDelete.className = "fa fa-trash"; // Font Awesome trash icon
+    aDelete.appendChild(iDelete);
+    userDiv.appendChild(aDelete);
+    
+    aDelete.onclick = function () {
+      var confirmDelete = confirm("Are you sure you want to delete this user?");
+      if (confirmDelete) {
+        window.location.href = "../PHP/delete.php?id=" + this.dataset.userid;
+      }
+    };
 
     userPanel.appendChild(userDiv);
   });
