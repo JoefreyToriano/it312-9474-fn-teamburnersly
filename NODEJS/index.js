@@ -129,14 +129,33 @@ app.get("/addSchedulePage/:day", function(req,res){
   
 )
 
+function convertTime(hours,seconds,meridian){
+  if(seconds==''){
+    seconds = 0
+  }
+  if(meridian == 'pm'){
+    hours = Number(hours)+12
+  }
+  var time = hours+":"+seconds+":00"
+  return time
+}
+
 app.post("/addSchedule/:day", function(req,res){
   console.log(req.body)
-  var timestart
-  var timeend
-
+  console.log(req.body.videoId)
+  var timestart = convertTime(req.body.hour[0],req.body.theMinutes[0],req.body.meridian[0])
+  var timeend = convertTime(req.body.hour[1],req.body.theMinutes[1],req.body.meridian[1])
+  console.log(timestart)
+  console.log(timeend)
   connection.query("INSERT INTO `schedule` (`scheduleid`, `day`, `videoid`, `timestart`, `timeend`) VALUES (NULL, ?, ?, ?, ?);",
-    [req.params.day,req.params.videoid,req.params.timestart,req.params.timeend]
+    [req.params.day,req.body.videoId,timestart,timeend]
   )
+  var day = req.params.day
+  var query2 = "SELECT schedule.scheduleid, content.title, schedule.timestart, schedule.timeend FROM schedule INNER JOIN content ON content.contentid = schedule.videoid WHERE schedule.day = '"+day+"' ORDER BY schedule.timestart DESC"
+  connection.query(query2,function(err,results){
+    var result = results
+    res.render('showSched',{result,day})
+  })
 }
 )
 

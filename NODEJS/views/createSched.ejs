@@ -7,9 +7,9 @@
 </head>
 <body>
     <h1>Creating a schedule for <%= day %></h1>
-    
+
     <form action="/addSchedule/<%= day%>" method="post">
-        <select name="videoTitle" id="videoTitle">
+        <select name="videoId" id="videoTitle">
             <option value="" selected disabled hidden>Please choose a video</option>
             <% if(titles.length>0){ %>
                 <% titles.forEach(title=>{ %>
@@ -20,13 +20,18 @@
             <% } %>       
         </select>
         <select name="hour">
-            <option value="06">06</option>
-            <option value="07">07</option>
-            <option value="08">08</option>
-            <option value="09">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
+            <option value=1>01</option>
+            <option value=2>02</option>
+            <option value=3>03</option>
+            <option value=4>04</option>
+            <option value=5>05</option>
+            <option value=6>06</option>
+            <option value=7>07</option>
+            <option value=8>08</option>
+            <option value=9>09</option>
+            <option value=10>10</option>
+            <option value=11>11</option>
+            <option value=12>12</option>
         </select>
         <input list="minutes" name="theMinutes" placeholder="00">
         <datalist id="minutes">
@@ -91,18 +96,23 @@
             <option value="58">
             <option value="59">
         </datalist>
-        <select name="am/pm">
+        <select name="meridian">
             <option value="am">AM</option>
             <option value="pm">PM</option>
         </select>
         <select name="hour">
-            <option value="06">06</option>
-            <option value="07">07</option>
-            <option value="08">08</option>
-            <option value="09">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
+            <option value=1>01</option>
+            <option value=2>02</option>
+            <option value=3>03</option>
+            <option value=4>04</option>
+            <option value=5>05</option>
+            <option value=6>06</option>
+            <option value=7>07</option>
+            <option value=8>08</option>
+            <option value=9>09</option>
+            <option value=10>10</option>
+            <option value=11>11</option>
+            <option value=12>12</option>
         </select>
         <input list="minutes" name="theMinutes" placeholder="00">
         <datalist id="minutes">
@@ -167,7 +177,7 @@
             <option value="58">
             <option value="59">
         </datalist>
-        <select name="am/pm">
+        <select name="meridian">
             <option value="am">AM</option>
             <option value="pm">PM</option>
         </select>
