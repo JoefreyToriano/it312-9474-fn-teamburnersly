@@ -110,29 +110,32 @@ app.get("/updateSchedule/:day", function(req,res){
   var day = req.params.day
   var query2 = "SELECT schedule.scheduleid, content.title, schedule.timestart, schedule.timeend FROM schedule INNER JOIN content ON content.contentid = schedule.videoid WHERE schedule.day = '"+day+"' ORDER BY schedule.timestart DESC"
   connection.query(query2,function(err,results){
-    l = results
-    console.log(l)
-    res.render('showSched',{liko:"POL",l})
+    var result = results
+    res.render('showSched',{result,day})
   })
 })
 
-app.get("/addSchedulePage", function(req,res){
+app.get("/addSchedulePage/:day", function(req,res){
   const titles = [
-    {title:"The daughter of the Sun and Moon", id:1},
-    {title:"The tower",id: 2},
-    {title:"The great war",id: 3},
-    {title:"Reality Break",id: 4},
-    {title:"The fall",id: 5},
-    {title:"The end of all things",id: 6}
+    {title:"The daughter of the Sun and Moon", id:7},
+    {title:"The tower",id: 8},
+    {title:"The great war",id: 11},
+    {title:"Reality Break",id: 13},
+    {title:"The fall",id: 14},
+    {title:"The end of all things",id: 15}
   ];
   console.log(titles)
-  res.render('createSched',{day:"Monday",titles})}
+  res.render('createSched',{day:req.params.day,titles})}
   
 )
 
-app.get("/addSchedule", function(req,res){
+app.post("/addSchedule/:day", function(req,res){
   console.log(req.body)
-  connection.query("INSERT INTO `schedule` (`scheduleid`, `day`, `videoid`, `timestart`, `timeend`) VALUES (NULL, ?, ?, ?, ?);"
+  var timestart
+  var timeend
+
+  connection.query("INSERT INTO `schedule` (`scheduleid`, `day`, `videoid`, `timestart`, `timeend`) VALUES (NULL, ?, ?, ?, ?);",
+    [req.params.day,req.params.videoid,req.params.timestart,req.params.timeend]
   )
 }
 )

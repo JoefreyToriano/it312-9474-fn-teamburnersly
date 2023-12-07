@@ -6,20 +6,21 @@
     <title>Document</title>
 </head>
 <body>
-    <h1> <%= liko %> </h1>
+    <h1> Schedule for <%= day %> </h1>
     <div class="scheduleItem">
         <p>Title</p>
         <p>Time Start</p>
         <p>Time End</p>
     </div>
-    <% if(l.length > 0) { %>
-        <% l.forEach(ls=>{ %>
+    <% if(result.length > 0) { %>
+        <% result.forEach(result=>{ %>
             <div class="scheduleItem">
-                <p><%= ls.title %></p>
-                <p><%= ls.timestart %></p>
-                <p><%= ls.timeend %></p>
+                <p><%= result.title %></p>
+                <p><%= result.timestart %></p>
+                <p><%= result.timeend %></p>
             </div>
         <%})%>
     <% }%>
+    <a href="/addSchedulePage/<%= day%>"><button>Add schedule</button></a>
 </body>
 </html>
