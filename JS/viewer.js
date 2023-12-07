@@ -2,20 +2,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const videoPlayer = document.getElementById('video-player');
     const captionsTrack = videoPlayer.querySelector('track');
 
-    // Function to get stream URL and captions URL from Owncast API
     function fetchStreamData() {
-        fetch('https://your-owncast-server.com/api/endpoint')
+        fetch('END POINT NATINNNN')
             .then(response => response.json())
             .then(data => {
-                const streamUrl = data.url; // Adjust according to API response
-                const captionsUrl = data.captionsUrl; // Replace with actual property name
-
-                videoPlayer.src = streamUrl;
-                captionsTrack.src = captionsUrl; // Set captions URL
-                videoPlayer.load(); // Reload video and track elements
+                videoPlayer.src = data.url;
+                captionsTrack.src = data.captionsUrl;
+                videoPlayer.load();
                 videoPlayer.play();
             })
-            .catch(error => console.error('Error fetching stream data:', error));
+            .catch(error => {
+                console.error('Error fetching stream data:', error);
+                alert('Error loading video. Please try again later.');
+            });
     }
 
     fetchStreamData();
