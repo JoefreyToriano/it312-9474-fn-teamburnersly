@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> <%= liko %> </h1>
+    <div class="scheduleItem">
+        <p>Title</p>
+        <p>Time Start</p>
+        <p>Time End</p>
+    </div>
+    <% if(l.length > 0) { %>
+        <% l.forEach(ls=>{ %>
+            <div class="scheduleItem">
+                <p><%= ls.title %></p>
+                <p><%= ls.timestart %></p>
+                <p><%= ls.timeend %></p>
+            </div>
+        <%})%>
+    <% }%>
+</body>
+</html>

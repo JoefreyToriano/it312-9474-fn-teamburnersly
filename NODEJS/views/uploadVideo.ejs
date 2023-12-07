@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <video id="liveVideo" width="640 px" height="360 px" controls autoplay>
+        <source src="/video" type="video/mp4">
+    </video>
+    <form class="uploadForm" id="uploadForm">
+        <p>Title: </p>
+        <input type="text" id="videoTitle" name="videoTitle">
+        <input type="file" id="uploadedVideo" name="uploadedVideo" accept="video/*">
+        <button type="submit" id="uploadVideo">Upload</button>
+    </form>
+    <script>
+        const form = document.getElementById("uploadForm")
+        const uploadFile = async() =>{
+            const title = document.getElementById("videoTitle")
+            const video = document.getElementById("uploadedVideo")
+
+            const formData = new FormData()
+            
+            formData.append("video",video.files[0])
+            formData.append("title",title.value)
+            console.log(...formData)
+
+            const response = await fetch("http://localhost:8001/upload",{
+                method: 'POST',
+                body: formData
+            })
+
+            const json = await response.json()
+
+            console.log(json)
+        }
+        form.addEventListener("submit",(e)=>{
+            e.preventDefault()
+            uploadFile()
+        })
+    </script>
+</body>
+</html>
