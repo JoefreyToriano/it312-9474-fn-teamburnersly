@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id = "mainContent">
+        <div id="videoPanel">
+            <div class="videoInfoCon">
+                <p>Title</p>
+                <p>Author</p>
+                <div id="titleFill"></div>
+                <div id="titleFill"></div>
+            </div>
+            <% if(results.length){ %>
+                <% results.forEach(result=>{%>
+                    <div class="videoInfoCon">
+                        <p><%= result.title %></p>
+                        <p><%= result.username %></p>
+                        <img src="Pencil.png">
+                        <img src="Trash.png">
+                    </div>
+                <%})%>
+            <%}%>
+        </div>
+    </div>
+</body>
+</html>

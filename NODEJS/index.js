@@ -14,6 +14,8 @@ var connection = sql.createConnection({
 
 const app = express();
 
+app.use(express.static(__dirname));
+
 app.use(express.json())
 
 app.use(express.urlencoded({extended:true}))
@@ -33,7 +35,7 @@ app.get('/uploadPage',function(req,res){
 
 app.post('/upload',fileUpload({createParentPath: true}),(req,res)=>{
     var files = req.files
-    
+    console.log(req.files)
     Object.keys(files).forEach(key=>{
         console.log(key)
         const relativeFilePath = path.join('../MEDIA/files',req.body['title']+".mp4")
@@ -43,8 +45,6 @@ app.post('/upload',fileUpload({createParentPath: true}),(req,res)=>{
         [req.body['title'],'00:04:00',"Video",2,relativeFilePath]
         )    
     })
-
-   
     return res.json({status:'Logged',Message:'Logged'})
 })
 
@@ -93,13 +93,10 @@ app.post("/login", function(req,res){
 })
 
 app.get("/videoList", function(req,res){
-  let v
-  connection.query("SELECT * FROM schedule", function (err,results){
+  connection.query("SELECT content.title, users.username FROM content JOIN users ON content.authorid = users.userid", function (err,results){
     if (err) throw err;
-    v = results
-    console.log(results)
+    res.render('videoList',{results})
   })
-  res.send(v)
 })
 
 app.get("/dayUpdate",function(req,res){
@@ -116,17 +113,17 @@ app.get("/updateSchedule/:day", function(req,res){
 })
 
 app.get("/addSchedulePage/:day", function(req,res){
-  const titles = [
-    {title:"The daughter of the Sun and Moon", id:7},
-    {title:"The tower",id: 8},
-    {title:"The great war",id: 11},
-    {title:"Reality Break",id: 13},
-    {title:"The fall",id: 14},
-    {title:"The end of all things",id: 15}
-  ];
-  console.log(titles)
-  res.render('createSched',{day:req.params.day,titles})}
-  
+  console.log(req.params.day)
+  console.log("------------------------------------------------------------------")
+  connection.query("SELECT * FROM content",function(err,results){
+      console.log(results)
+      if(err){
+        throw err
+      }
+      res.render('createSched',{day:req.params.day,results})
+  }  
+  )
+  }
 )
 
 function convertTime(hours,seconds,meridian){
@@ -141,12 +138,8 @@ function convertTime(hours,seconds,meridian){
 }
 
 app.post("/addSchedule/:day", function(req,res){
-  console.log(req.body)
-  console.log(req.body.videoId)
   var timestart = convertTime(req.body.hour[0],req.body.theMinutes[0],req.body.meridian[0])
   var timeend = convertTime(req.body.hour[1],req.body.theMinutes[1],req.body.meridian[1])
-  console.log(timestart)
-  console.log(timeend)
   connection.query("INSERT INTO `schedule` (`scheduleid`, `day`, `videoid`, `timestart`, `timeend`) VALUES (NULL, ?, ?, ?, ?);",
     [req.params.day,req.body.videoId,timestart,timeend]
   )
@@ -159,7 +152,14 @@ app.post("/addSchedule/:day", function(req,res){
 }
 )
 
-app.post("/deleteSchedule/:id",function(req,res){
-  connection.query()
-})
+app.get("/deleteSchedule/:id/:day",function(req,res){
+  connection.query("DELETE FROM schedule WHERE scheduleid = ?",[req.params.id])
+  var day = req.params.day
+  connection.query("SELECT schedule.scheduleid, content.title, schedule.timestart, schedule.timeend FROM schedule INNER JOIN content ON content.contentid = schedule.videoid WHERE schedule.day = '"+day+"' ORDER BY schedule.timestart DESC",
+    function(err,results){
+      console.log(results)
+      var result = results
+      res.render('showSched',{result,day})
+    })
+  })
 

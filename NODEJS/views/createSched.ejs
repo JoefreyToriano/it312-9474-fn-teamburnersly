@@ -11,9 +11,9 @@
     <form action="/addSchedule/<%= day%>" method="post">
         <select name="videoId" id="videoTitle">
             <option value="" selected disabled hidden>Please choose a video</option>
-            <% if(titles.length>0){ %>
-                <% titles.forEach(title=>{ %>
-                    <option value= <%= title.id %> ><%= title.title %></option>
+            <% if(results.length>0){ %>
+                <% results.forEach(result=>{ %>
+                    <option value= <%= result.contentid %> ><%= result.title %></option>
                 <% }) %>
             <% } else { %>
                 <option>Yes</option>
