@@ -1,0 +1,50 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #0056b3; /* Blue color for headings */
+    text-align: center;
+}
+
+/* Day Bar Styles */
+a {
+    text-decoration: none;
+}
+
+.dayBar {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+.h1 {
+	color: #0056b3;
+}
+
+p {
+	color: #0056b3;
+	text-align: center;
+}
+
+.dayBar h2 {
+    color: #0056b3;
+}
+
+.dayBar:hover {
+    background-color: #e6f7ff; /* Light blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .dayBar {
+        width: 100%;
+    }
+}
