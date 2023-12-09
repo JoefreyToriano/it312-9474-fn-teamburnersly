@@ -71,6 +71,12 @@ app.post('/upload',fileUpload({createParentPath: true}),(req,res)=>{
   }
 })
 
+const videoHistoryDir = path.join(__dirname, 'videoHistory');
+// Ensure the videoHistory directory exists
+if (!fs.existsSync(videoHistoryDir)) {
+    fs.mkdirSync(videoHistoryDir, { recursive: true });
+}
+
 app.get("/video", function (req, res) {
     // Ensure there is a range given for the video
     const range = req.headers.range;
@@ -78,10 +84,11 @@ app.get("/video", function (req, res) {
       res.status(400).send("Requires Range header");
     }
 
-    // get video stats (about 61MB)
-    const videoPath = __dirname+"/../MEDIA/files/ReDoin.mp4";
+    // Get the name of the video file from the request
+    
+    const videoName = "Genshin.mp4"; // Replace this with dynamic video file retrieval logic if necessary
+    const videoPath = path.join(__dirname, "../MEDIA/files", videoName);
     const videoSize = fs.statSync(videoPath).size;
-  
     // Parse Range
     // Example: "bytes=32324-"
     const CHUNK_SIZE = 10 ** 6; // 1MB
@@ -102,9 +109,62 @@ app.get("/video", function (req, res) {
   
     // create video read stream for this particular chunk
     const videoStream = fs.createReadStream(videoPath, { start, end });
+
+    // When the stream is finished, it means the video was played, so copy it to history
+    videoStream.on('close', () => {
+      const timestamp = new Date().toISOString(); // Get the current timestamp
+      const historyVideoPath = path.join(videoHistoryDir, videoName);
+      const historyMetadataPath = path.join(videoHistoryDir, videoName.replace('.mp4', '') + '.txt');
   
+      // Copy the video file to the videoHistory folder
+      fs.copyFile(videoPath, historyVideoPath, (err) => {
+          if (err) {
+              console.error("Could not copy video to history:", err);
+          } else {
+              console.log(`Video ${videoName} copied to history.`);
+              // Write the timestamp to a .txt file with the same name as the video
+              fs.writeFile(historyMetadataPath, `Played at: ${timestamp}`, (err) => {
+                  if (err) {
+                      console.error("Could not write metadata for video history:", err);
+                  }
+              });
+          }
+      });
+    // Right after copying the video file
+    fs.writeFile(historyMetadataPath, `Played at: ${timestamp}`, (err) => {
+      if (err) {
+      console.error("Could not write metadata for video history:", err);
+  }
+});    
+  });
     // Stream the video chunk to the client
     videoStream.pipe(res);
+    
+});
+
+app.get("/videoHistoryList", function(req, res) {
+  fs.readdir(videoHistoryDir, (err, files) => {
+      if (err) {
+          console.error("Could not list the directory.", err);
+          res.status(500).send("Server error");
+      } else {
+          let videoHistory = files
+              .filter(file => path.extname(file).toLowerCase() === '.mp4')
+              .map(file => {
+                  // Remove the .mp4 extension and add .txt for the metadata file
+                  const metadataPath = path.join(videoHistoryDir, file.replace('.mp4', '') + '.txt');
+                  let timestamp = 'Unknown time';
+                  if (fs.existsSync(metadataPath)) {
+                      timestamp = fs.readFileSync(metadataPath, 'utf8');
+                  }
+                  return {
+                      name: file,
+                      timestamp: timestamp.trim() // Trim whitespace if any
+                  };
+              });
+          res.json(videoHistory);
+      }
+  });
 });
 
 
