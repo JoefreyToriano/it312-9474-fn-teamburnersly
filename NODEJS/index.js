@@ -3,9 +3,8 @@ const express = require('express')
 const path = require('path');
 const fileUpload = require('express-fileupload');
 const fs = require('fs')
-var bodyParser = require('body-parser');
-const { connect } = require('http2');
-const { title } = require('process');
+const bodyParser = require('body-parser');
+const session = require('express-session')
 
 
 var connection = sql.createConnection({
@@ -14,38 +13,62 @@ var connection = sql.createConnection({
 
 const app = express();
 
-app.use(express.static(__dirname));
+app.use(express.static('Media'));
 
-app.use(express.json())
+app.use(bodyParser.json())
 
-app.use(express.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({extended:true}))
+
+app.use(session({secret:"somesecretkey", resave: true, saveUninitialized: true}))
 
 app.set('view engine','ejs')
 
 app.get("/",function (req,res){
-    res.sendFile(__dirname+"/index.html")
+    res.render("logIn.ejs")
 })
 
 app.listen(8001, 'localhost')
 console.log("Listening at port 8001")
 
+app.post("/login", function(req,res){
+  var username = req.body.username
+  var password = req.body.password
+  connection.query("SELECT * FROM users WHERE password = ? AND username = ? AND usertype = ?",[password,username,"Content Manager"],function(err, results){
+    if (err) throw err
+    if(results.length>0){
+      req.session.user = username
+      req.session.userid = results[0].userid
+      res.render('contentManager')
+    } else {
+      
+    }
+  })
+})
+
 app.get('/uploadPage',function(req,res){
   res.render('uploadVideo')
 })
 
+app.get('/logout',(req,res)=>{
+  req.session.destroy();
+  res.render('logIn')
+})
+
 app.post('/upload',fileUpload({createParentPath: true}),(req,res)=>{
+    if(req.session.user){
     var files = req.files
-    console.log(req.files)
     Object.keys(files).forEach(key=>{
-        console.log(key)
         const relativeFilePath = path.join('../MEDIA/files',req.body['title']+".mp4")
         const filePath = path.join(__dirname,relativeFilePath)
         files[key].mv(filePath)
         connection.query('INSERT INTO content (contentid, title, duration, timestamp, type, authorid, path) VALUES (NULL, ?,?, CURRENT_TIMESTAMP, ?, ?, ?)',
-        [req.body['title'],'00:04:00',"Video",2,relativeFilePath]
+        [req.body['title'],'00:04:00',"Video",req.session.userid,relativeFilePath]
         )    
     })
-    return res.json({status:'Logged',Message:'Logged'})
+    return res.json({status:"Logged",Message:"Logged"})
+  } else {
+    res.redirect("/")
+  }
 })
 
 app.get("/video", function (req, res) {
@@ -84,19 +107,17 @@ app.get("/video", function (req, res) {
     videoStream.pipe(res);
 });
 
-app.post("/login", function(req,res){
-  console.log(req.body)
-  Object.keys(req.body).forEach(key=>{
-    console.log(key) 
-  })
-  console.log("I got the body")
-})
+
 
 app.get("/videoList", function(req,res){
-  connection.query("SELECT content.title, users.username FROM content JOIN users ON content.authorid = users.userid", function (err,results){
+  if(req.session.user){
+  connection.query("SELECT content.title, users.username, content.contentid FROM content JOIN users ON content.authorid = users.userid", function (err,results){
     if (err) throw err;
     res.render('videoList',{results})
   })
+  }else{
+    res.redirect('/')
+  }
 })
 
 app.get("/dayUpdate",function(req,res){
@@ -113,10 +134,7 @@ app.get("/updateSchedule/:day", function(req,res){
 })
 
 app.get("/addSchedulePage/:day", function(req,res){
-  console.log(req.params.day)
-  console.log("------------------------------------------------------------------")
   connection.query("SELECT * FROM content",function(err,results){
-      console.log(results)
       if(err){
         throw err
       }
@@ -152,14 +170,33 @@ app.post("/addSchedule/:day", function(req,res){
 }
 )
 
-app.get("/deleteSchedule/:id/:day",function(req,res){
+app.post("/deleteSchedule/:id/:day",function(req,res){
   connection.query("DELETE FROM schedule WHERE scheduleid = ?",[req.params.id])
   var day = req.params.day
   connection.query("SELECT schedule.scheduleid, content.title, schedule.timestart, schedule.timeend FROM schedule INNER JOIN content ON content.contentid = schedule.videoid WHERE schedule.day = '"+day+"' ORDER BY schedule.timestart DESC",
     function(err,results){
-      console.log(results)
       var result = results
       res.render('showSched',{result,day})
     })
+})
+
+app.post("/backToStart",function(req,res){
+  res.render('contentManager')
+})
+
+app.post("/deleteVideo/:id",function(req,res){
+  console.log(req.params.id)
+  connection.query("SELECT path FROM content WHERE contentid = ?",[req.params.id],function(err,results){
+    console.log(results)
+    fs.unlink(path.join(__dirname,results[0].path),function(err){
+      if (err) throw err
+      connection.query("DELETE FROM content WHERE contentid = ?",[req.params.id])
+      console.log("Sucessfull")
+      res.redirect("/videoList")
+    })
   })
+  
+})
+
+
 

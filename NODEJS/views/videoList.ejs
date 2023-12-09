@@ -20,8 +20,9 @@
                     <div class="videoInfoCon">
                         <p><%= result.title %></p>
                         <p><%= result.username %></p>
-                        <img src="Pencil.png">
-                        <img src="Trash.png">
+                        <form method="POST" action="/deleteVideo/<%= result.contentid%>">
+                            <button type="submit"><img src="/Trash.png"></button>
+                        </form>
                     </div>
                 <%})%>
             <%}%>

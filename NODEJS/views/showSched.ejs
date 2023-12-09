@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <title>Document</title>
+    <style>
+    </style>
 </head>
 <body>
+    <div id="mainContent">
     <h1> Schedule for <%= day %> </h1>
+    <div id = "videoPanel">
     <div class="scheduleItem">
         <p>Title</p>
         <p>Time Start</p>
         <p>Time End</p>
+        <div id="titleFill"></div>
+        <div id="titleFill"></div>
     </div>
     <% if(result.length > 0) { %>
         <% result.forEach(result=>{ %>
@@ -19,10 +25,14 @@
                 <p><%= result.title %></p>
                 <p><%= result.timestart %></p>
                 <p><%= result.timeend %></p>
-                <a href="/deleteSchedule/<%= result.scheduleid%>/<%= day%>"><img src="Trash.png"></a>
+                <form method="POST" action="/deleteSchedule/<%= result.scheduleid%>/<%= day%>">
+                    <button type="submit"><img src="/Trash.png"></button>
+                </form>
             </div>
         <%})%>
     <% }%>
+    </div>
     <a href="/addSchedulePage/<%= day%>"><button>Add schedule</button></a>
+    </div>
 </body>
 </html>

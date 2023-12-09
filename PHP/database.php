@@ -1,4 +1,4 @@
 <?php
-    $db = new mysqli("p:localhost","root","","agbuyatv");  
+    $db = new mysqli("p:localhost","root","Going2Alice"," agbuyatv");  
 ?>
 

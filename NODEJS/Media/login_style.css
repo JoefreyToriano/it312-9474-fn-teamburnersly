@@ -1,0 +1,108 @@
+/* login_style.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1c3a83; /* Adjust the color to match your design */
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%; /* Adjusts the width of the container to 80% of the viewport */
+    max-width: 1200px; /* Sets a maximum width */
+    margin: auto; /* Centers the container horizontally */
+    border-radius: 10px; /* Optional: Rounded corners for the container */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Optional: Adds shadow for depth */
+    padding: 20px;
+}
+
+.image-wrapper {
+    flex: 1; /* Allocates space for the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px 0 0 10px; /* Rounded corners on the left side */
+}
+
+.image-wrapper img {
+ width: 500px;
+ height: auto;
+}
+
+#login {
+    flex: 1; /* Allocates space for the login form */
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 0 10px 10px 0; /* Rounded corners on the right side */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+}
+
+/* Styles for the login form elements */
+#login h1, #login p, #login input, #login button {
+    margin: 10px 0; /* Adds margin to space out elements */
+    color: black;
+}
+
+#login input[type="text"],
+#login input[type="password"] {
+    width: 100%;
+    padding: 10px 10px 10px 40px; /* Increased left padding to accommodate the icon */
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* Align text inside input */
+    height: 40px; /* Example height, adjust to match the size of your icon */
+}
+.input-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center; /* Aligns the icon and input field vertically */
+}
+
+.input-wrapper .icon {
+    position: absolute;
+    left: 10px;
+    color: #333;
+    /* Adjust the size of the icon if needed */
+    font-size: 16px; /* Example size, adjust as needed */
+}
+#login button {
+ padding: 10px;
+    border: none;
+    background-color: #1c3a83;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    width:100%; /* Example width, adjust as needed */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .image-wrapper,
+    #login {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 10px;
+    }
+
+    .image-wrapper img {
+        max-width: 80%; /* Adjust the image size on smaller screens */
+    }
+}
