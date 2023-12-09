@@ -54,9 +54,31 @@ session_start();
                             $stmt->bind_result($id, $lname, $fname, $uname, $email, $pword, $utype);
                             include("dataclasses.php");
                             while ($stmt->fetch()) {
-                                $_SESSION['current_user'] = new user($id, $lname, $fname, $uname, $email, $pword, $utype);
-                                $stmt->close();
-                                header('Location:../HTML/admin.html');
+                                if($utype=="Content Manager"){
+                                    /*echo
+                                    "<script>
+                                        const uploadUser = async() =>{
+                                        const user = {
+                                            id:{$id},
+                                            lname:\"$lname\",
+                                            fname:\"$fname\",
+                                            uname:\"$uname\",
+                                            utype:\"$utype\"
+                                        }
+                                        k = JSON.parse(JSON.stringify(user))
+                                        const l = await fetch(\"http://localhost:8001/login\",{
+                                            method:'POST',
+                                            body: users
+                                        })
+                                    }
+                                    uploadUser()
+                                    </script>";*/
+                                    echo "<p>Only Admins are allowed here</p>";
+                                } else {
+                                    $_SESSION['current_user'] = new user($id, $lname, $fname, $uname, $email, $pword, $utype);
+                                    $stmt->close();
+                                    header('Location:../HTML/admin.php');
+                                }
                             }
                         } else {
                             echo "<p>Your credentials are wrong</P>";
@@ -69,5 +91,4 @@ session_start();
         </div>
     </div>
 </body>
-
 </html>
