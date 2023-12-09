@@ -5,25 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/uploadStyle.css" />
     <title>Document</title>
-  </head>
-  <body>
-    <div class="container">
-      <form class="uploadForm" id="uploadForm">
-        <div class="formGroup">
-          <label for="videoTitle">Title:</label>
-          <input type="text" id="videoTitle" name="videoTitle" />
-        </div>
-        <div class="formGroup fileUpload">
-          <input
-            type="file"
-            id="uploadedVideo"
-            name="uploadedVideo"
-            accept="video/*"
-            onchange="updateFileName()"
-          />
-          <label for="uploadedVideo">Choose a file</label>
-          <span id="fileName" class="fileName"></span>
-        </div>
+</head>
+<body>
+    <form action="/backToStart" method="post">
+        <button type="submit">Back</button>
+    </form>
+    <form class="uploadForm" id="uploadForm">
+        <p>Title: </p>
+        <input type="text" id="videoTitle" name="videoTitle">
+        <input type="file" id="uploadedVideo" name="uploadedVideo" accept="video/*">
         <button type="submit" id="uploadVideo">Upload</button>
         <button type="button" class="backButton" onclick="goBack()">
           Back
@@ -47,33 +37,19 @@
               body: formData,
             });
 
-            const json = await response.json();
+            const json = await response.json()
 
-            if (json.Message == "Logged") {
-              title.value = ""; // Clear the title field
-              video.value = ""; // Clear the file input
-              fileName.textContent = "Video Successfully Uploaded"; // Update the file name display
+            if(json.Message=="Logged"){
+                console.log("Logged")
+                var p = document.createAttribute("p")
+                p.innerHTML = "Video Successfully Uploaded"
+                document.body.append(p)
             }
-          };
-
-          form.addEventListener("submit", (e) => {
-            e.preventDefault();
-            uploadFile();
-          });
-
-          function updateFileName() {
-            var input = document.getElementById("uploadedVideo");
-            var fileName = document.getElementById("fileName");
-            if (input.files.length > 0) {
-              fileName.textContent = `Selected file: ${input.files[0].name}`;
-            } else {
-              fileName.textContent = "";
-            }
-          }
-            function goBack() {
-        window.history.back() = '/backToStart';
-
-      }
+        }
+        form.addEventListener("submit",(e)=>{
+            e.preventDefault()
+            uploadFile()
+        })
     </script>
   </body>
 </html>
