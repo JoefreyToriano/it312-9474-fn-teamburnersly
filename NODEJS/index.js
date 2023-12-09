@@ -1,11 +1,11 @@
 const sql = require('mysql')
 const express = require('express')
-const path = require('path');
-const fileUpload = require('express-fileupload');
+const path = require('path')
+const fileUpload = require('express-fileupload')
 const fs = require('fs')
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
 const session = require('express-session')
-
+const io = require('socket.io')
 
 var connection = sql.createConnection({
     host: 'localhost', user: 'root', password: 'Going2Alice', database: ' agbuyatv'
