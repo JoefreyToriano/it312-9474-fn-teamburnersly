@@ -8,7 +8,7 @@ const session = require('express-session')
 
 
 var connection = sql.createConnection({
-    host: 'localhost', user: 'root', password: 'Going2Alice', database: ' agbuyatv'
+    host: 'localhost', user: 'root', password: '', database: 'agbuyatv'
 })
 
 const app = express();

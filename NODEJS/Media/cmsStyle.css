@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body, html {
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header style */
+.header {
+    background-color: #005792; 
+    color: white;
+    padding: 1rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+/* Main layout */
+.container {
+    display: flex;
+    flex-direction: row-reverse; /* Reverse the order of flex items */
+    padding: 20px;
+}
+
+
+/* Sidebar style */
+.sidebar {
+    flex: 0 0 250px; /* sidebar width */
+    background-color: #003366; 
+    color: white;
+    padding: 120px;
+    /* Remove the order property */
+}
+
+
+/* Main content style */
+.main-content {
+    flex: 1; /* take the remaining width */
+    padding: 20px;
+    background-color: #ffffff;
+    margin-right: 20px;
+}
+
+
+/* Schedule style */
+.schedule {
+    flex: 0 0 350px; /* schedule width */
+    background-color: #ffffff;
+    padding: 20px;
+    height: 600px; /* Fixed height for schedule */
+    overflow-y: auto; /* Add scroll for overflow */
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack the items on small screens */
+    }
+
+
+    .sidebar, .main-content, .schedule {
+        /* Reset flex and margins for a vertical stack */
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+
+    .main-content {
+        margin-bottom: 20px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .sidebar {
+        order: 1;
+        flex: 0 0 100%;
+        margin-bottom: 20px;
+    }
+
+
+    .main-content {
+        order: 2;
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0; /* Remove margin to use full width */
+    }
+
+
+    .schedule {
+        order: 3;
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}
+
+
+/* Video controls style */
+.video-controls {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+
+.video-controls a {
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+
+.video-controls button {
+    background-color: #0f9df0;
+    color: white;
+    border: none;
+    padding: 20px 25px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.video-controls button:hover {
+    background-color: #0e5e76; /* Darken button color on hover */
+}
+
+#liveVideo {
+    width: 100%;
+    height: auto;
+    background-color: #000;
+}
