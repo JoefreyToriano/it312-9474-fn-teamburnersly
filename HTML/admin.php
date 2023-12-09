@@ -8,6 +8,7 @@
     <title>User Management</title>
 </head>
 <body>
+    <iframe src="../HTML/banner.html" width="100%" height="100px" frameborder="0"></iframe>
     <div class="mainContent">
         <div id="contentBox">
             <img src="../MEDIA/alice.jpeg">
@@ -27,5 +28,6 @@
     </div>
     <?php include "footer.html"; ?>
     <script src="../JS/admin.js"></script>
+    <iframe src="../HTML/footer.html" width="100%" height="500px" frameborder="0"></iframe>
 </body>
 </html>
