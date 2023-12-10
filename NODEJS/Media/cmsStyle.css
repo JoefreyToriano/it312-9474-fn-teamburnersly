@@ -161,11 +161,7 @@ body, html {
     font-weight: 600;
     font-size: 20px;
 }
-#liveVideo {
-    width: 100%;
-    height: auto;
-    background-color: #000;
-}
+
 * {
     margin: 0;
     padding: 0;
@@ -330,7 +326,7 @@ body, html {
     font-size: 20px;
 }
 #liveVideo {
-    width: 100%;
-    height: auto;
+    width: 1080px;
+    height: 720px;
     background-color: #000;
 }

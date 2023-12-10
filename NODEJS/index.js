@@ -204,6 +204,11 @@ app.get("/addSchedulePage/:day", function(req,res){
   }
 )
 
+//viewer side
+app.get("/viewer", function (req, res) {
+  res.sendFile(path.join(__dirname, "", "viewer.html"));
+});
+
 function convertTime(hours,seconds,meridian){
   if(seconds==''){
     seconds = 0

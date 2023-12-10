@@ -20,3 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchStreamData();
     setInterval(fetchStreamData, 60000); // Refresh every 60 seconds
 });
+
+
+
