@@ -15,10 +15,14 @@
                 <div id="titleFill"></div>
                 <div id="titleFill"></div>
             </div>
+
             <% if(results.length){ %>
-                <% results.forEach(result=>{%>
+                <% results.forEach(result => { %>
                     <div class="videoInfoCon">
-                        <p><%= result.title %></p>
+                        <p>
+                            <!-- Link to the video player page with contentid -->
+                            <a href="/contentManager?contentid=<%= result.contentid %>"><%= result.title %></a>
+                        </p>
                         <p><%= result.username %></p>
                         <form method="POST" action="/deleteVideo/<%= result.contentid%>">
                             <button type="submit"><img src="/Trash.png"></button>

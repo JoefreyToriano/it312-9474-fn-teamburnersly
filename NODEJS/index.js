@@ -12,7 +12,7 @@ var connection = sql.createConnection({
 })
 
 const app = express();
-
+app.use('/media', express.static(path.join(__dirname, 'MEDIA', 'files')));
 app.use(express.static('Media'));
 
 app.use(bodyParser.json())
@@ -53,7 +53,30 @@ app.get('/logout',(req,res)=>{
   req.session.destroy();
   res.render('logIn')
 })
+app.get('/contentManager', (req, res) => {
+  const contentid = req.query.contentid;
+  if (contentid) {
+      connection.query('SELECT path FROM content WHERE contentid = ?', [contentid], (err, result) => {
+          if (err) {
+              console.error(err);
+              return res.sendStatus(500);
+          }
 
+          if (result.length > 0) {
+              let videoPath = result[0].path.replace('..\\MEDIA\\files\\', '');
+              videoPath = videoPath.replace(/\\/g, '/');
+              res.render('contentManager', { videoPath: '/media/' + videoPath });
+          } else {
+              res.sendStatus(404);
+          }
+      });
+  } else {
+      // Render without a specific video
+      res.render('contentManager');
+  }
+});
+app.use('/files', express.static(path.join(__dirname, 'MEDIA', 'files')));
+app.use(express.static(path.join(__dirname, 'MEDIA')));
 app.post('/upload',fileUpload({createParentPath: true}),(req,res)=>{
     if(req.session.user){
     var files = req.files
@@ -76,72 +99,81 @@ const videoHistoryDir = path.join(__dirname, 'videoHistory');
 if (!fs.existsSync(videoHistoryDir)) {
     fs.mkdirSync(videoHistoryDir, { recursive: true });
 }
-
-app.get("/video", function (req, res) {
-    // Ensure there is a range given for the video
-    const range = req.headers.range;
-    if (!range) {
-      res.status(400).send("Requires Range header");
-    }
-
-    // Get the name of the video file from the request
-    
-    const videoName = "Genshin.mp4"; // Replace this with dynamic video file retrieval logic if necessary
-    const videoPath = path.join(__dirname, "../MEDIA/files", videoName);
-    const videoSize = fs.statSync(videoPath).size;
-    // Parse Range
-    // Example: "bytes=32324-"
-    const CHUNK_SIZE = 10 ** 6; // 1MB
-    const start = Number(range.replace(/\D/g, ""));
-    const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
-  
-    // Create headers
-    const contentLength = end - start + 1;
-    const headers = {
-      "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-      "Accept-Ranges": "bytes",
-      "Content-Length": contentLength,
-      "Content-Type": "video/mp4",
-    };
-  
-    // HTTP Status 206 for Partial Content
-    res.writeHead(206, headers);
-  
-    // create video read stream for this particular chunk
-    const videoStream = fs.createReadStream(videoPath, { start, end });
-
-    // When the stream is finished, it means the video was played, so copy it to history
-    videoStream.on('close', () => {
-      const timestamp = new Date().toISOString(); // Get the current timestamp
-      const historyVideoPath = path.join(videoHistoryDir, videoName);
-      const historyMetadataPath = path.join(videoHistoryDir, videoName.replace('.mp4', '') + '.txt');
-  
-      // Copy the video file to the videoHistory folder
-      fs.copyFile(videoPath, historyVideoPath, (err) => {
-          if (err) {
-              console.error("Could not copy video to history:", err);
-          } else {
-              console.log(`Video ${videoName} copied to history.`);
-              // Write the timestamp to a .txt file with the same name as the video
-              fs.writeFile(historyMetadataPath, `Played at: ${timestamp}`, (err) => {
-                  if (err) {
-                      console.error("Could not write metadata for video history:", err);
-                  }
-              });
-          }
-      });
-    // Right after copying the video file
-    fs.writeFile(historyMetadataPath, `Played at: ${timestamp}`, (err) => {
+app.get('/video/:contentid', (req, res) => {
+  const contentid = req.params.contentid;
+  connection.query('SELECT path FROM content WHERE contentid = ?', [contentid], (err, result) => {
       if (err) {
-      console.error("Could not write metadata for video history:", err);
-  }
-});    
-  });
-    // Stream the video chunk to the client
-    videoStream.pipe(res);
-    
-});
+          console.error(err);
+          return res.sendStatus(500);
+      }
 
+      if (result.length > 0) {
+          // Adjust the path to match the static files middleware
+          let videoPath = result[0].path.replace('..\\MEDIA\\files\\', '');
+          videoPath = videoPath.replace(/\\/g, '/'); // Ensure forward slashes
+          res.sendFile(videoPath, { root: path.join(__dirname, 'MEDIA', 'files') });
+      } else {
+          res.sendStatus(404);
+      }
+  });
+});
+app.get('/video/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const videoPath = path.join(__dirname, 'MEDIA', 'files', filename);
+
+  // Check if the file exists before trying to serve it
+  if (fs.existsSync(videoPath)) {
+      const stat = fs.statSync(videoPath);
+      const fileSize = stat.size;
+      const range = req.headers.range;
+
+      if (range) {
+          // Extract the range info
+          const parts = range.replace(/bytes=/, "").split("-");
+          const start = parseInt(parts[0], 10);
+          const end = parts[1] ? parseInt(parts[1], 10) : fileSize-1;
+          const chunksize = (end-start)+1;
+          const file = fs.createReadStream(videoPath, {start, end});
+          const head = {
+              'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+              'Accept-Ranges': 'bytes',
+              'Content-Length': chunksize,
+              'Content-Type': 'video/mp4',
+          };
+
+          res.writeHead(206, head);
+          file.pipe(res);
+      } else {
+          const head = {
+              'Content-Length': fileSize,
+              'Content-Type': 'video/mp4',
+          };
+
+          res.writeHead(200, head);
+          fs.createReadStream(videoPath).pipe(res);
+      }
+  } else {
+      res.sendStatus(404);
+  }
+});
+app.get('/playVideo', (req, res) => {
+  const contentid = req.query.contentid;
+  connection.query('SELECT * FROM content WHERE contentid = ?', [contentid], (err, result) => {
+      if (err) {
+          console.error(err);
+          return res.sendStatus(500);
+      }
+
+      if (result.length > 0) {
+          // Assuming the 'path' column in your 'content' table stores the path like '..\MEDIA\files\video.mp4'
+          // We strip the leading '..\' and replace backslashes with forward slashes
+          const videoPath = result[0].path.replace(/^\.\.\\/, '').replace(/\\/g, '/');
+          res.render('contentManager', { videoPath: videoPath });
+      } else {
+          return res.sendStatus(404);
+      }
+  });
+});
 app.get("/videoHistoryList", function(req, res) {
   fs.readdir(videoHistoryDir, (err, files) => {
       if (err) {
