@@ -97,7 +97,6 @@ footer {
 }
 
 .fixed-banner {
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -107,6 +106,7 @@ footer {
     align-items: center;
     padding: 0 20px; 
     box-shadow: 0 2px 5px var(--primary-color-dark); 
+    margin-bottom: 10px;
 }
 
 .logo {

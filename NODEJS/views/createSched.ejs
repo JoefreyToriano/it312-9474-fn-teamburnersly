@@ -7,6 +7,7 @@
     <title>Create Schedule</title>
 </head>
 <body>
+    <%- include('banner.ejs') %>
     <h1>Creating a schedule for <%= day %></h1>
 
     <form action="/addSchedule/<%= day%>" method="post">
@@ -185,6 +186,7 @@
         </select>
         <button>Add Schedule</button>
     </form>
+    <%- include('footer.ejs') %>
     <script>
 
     </script>

@@ -9,6 +9,7 @@
     </style>
 </head>
 <body>
+    <%- include('banner.ejs') %>
     <div id="mainContent">
     <h1> Schedule for <%= day %> </h1>
     <div id = "videoPanel">
@@ -34,5 +35,6 @@
     </div>
     <a href="/addSchedulePage/<%= day%>"><button>Add schedule</button></a>
     </div>
+    
 </body>
 </html>

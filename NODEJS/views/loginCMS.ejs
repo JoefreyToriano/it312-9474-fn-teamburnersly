@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="loginCMS.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>User Management</title>
+</head>
+<body>
+    <%- include('banner.ejs') %>
+    <div class="mainContent">
+    
+    <video id="liveVideo" width="768 px" height="432 px" onended="reloadVideo()">
+      <source id="ffff" src="/getVideo/0">
+    </video>
+    <iframe
+    id = "streamVideo"
+    src= "http://192.168.56.107:8080/embed/video"
+    title="Owncast"
+    height="432 px" width="768 px"
+    referrerpolicy="origin"
+    style="display:none"
+    allowfullscreen>
+    </iframe>    
+    <div class="sideMenu">
+      <a href="/goToLogIn" class="signin"><button>Login</button></a>
+      <a><button onclick=startStream() class="signin">Show Scheduled Broadcast</button></a>
+      <a><button onclick=startLiveStream() class="signin">Show Live Broadcast</button></a>
+    </div>
+    </div>
+    <script>
+    var streaming = false
+    var currentId = 0
+        async function startStream(){
+            iframe = document.getElementById("streamVideo")
+            iframe.style.display="none"
+            video = document.getElementById("liveVideo")
+            video.style.display="block"
+            video.load();
+            video.play();
+            var interval
+            if(streaming){
+                clearInterval(interval)
+                streaming = false
+                video.load();
+            } else {
+                interval = setInterval(async () => {
+                await checkIfSame();
+                }, 1000);
+                streaming = true
+            }
+        }
+        
+        async function checkIfSame() {
+            console.log("Checking");
+
+            try {
+                // Make a POST request to '/currentVideo'
+                const response = await fetch('/currentVideo', {
+                    method: "POST"
+                });
+                response2 = await response.json()
+                console.log(response2) 
+                if (response2.message != currentId) {
+                const source = document.getElementById('ffff');
+                source.setAttribute('src', '/getVideo/' + response2.message);
+                currentId = response2.message
+                reloadVideo();
+                }
+        
+            } catch (error) {
+                // Handle any errors that occurred during the fetch
+                console.error('Error during fetch:', error);
+            }
+        }
+
+        function startLiveStream(){
+          iframe = document.getElementById("streamVideo")
+          iframe.style.display="block"
+          video = document.getElementById("liveVideo")
+          video.style.display="none"
+          streaming = false
+        }
+
+        function reloadVideo(){
+            video = document.getElementById("liveVideo")
+            video.load();
+            video.play();
+        }
+    </script>
+    <script src="loginCMS.js">
+    </script>
+    <%- include('footer.ejs') %>
+    </body>
+</html>

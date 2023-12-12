@@ -10,8 +10,8 @@ const io = require("socket.io");
 var connection = sql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
-  database: "agbuyatv",
+  password: "Going2Alice",
+  database: " agbuyatv",
 });
 
 const app = express();
@@ -29,7 +29,7 @@ app.use(
 app.set("view engine", "ejs");
 
 app.get("/", function (req, res) {
-  res.render("logIn.ejs");
+  res.render("loginCMS.ejs");
 });
 
 app.listen(8001, "localhost");
@@ -56,6 +56,10 @@ app.post("/login", function (req, res) {
 app.get("/uploadPage", function (req, res) {
   res.render("uploadVideo");
 });
+
+app.get("/goToLogIn",function(req,res){
+  res.render("logIn");
+})
 
 app.get("/logout", (req, res) => {
   req.session.destroy();
@@ -96,7 +100,7 @@ app.post("/upload", fileUpload({ createParentPath: true }), (req, res) => {
     var files = req.files;
     Object.keys(files).forEach((key) => {
       const relativeFilePath = path.join(
-        "../MEDIA/files",
+        "../../MEDIA/files",
         req.body["title"] + ".mp4"
       );
       const filePath = path.join(__dirname, relativeFilePath);
@@ -356,4 +360,94 @@ app.post("/deleteVideo/:id", function (req, res) {
       });
     }
   );
+});
+
+app.post("/currentVideo", (req, res) => {
+  var date = new Date();
+  var currentTime = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+  var currentDay = date.getDay();
+  
+  if (currentDay === 0) {
+    currentDay = "Sunday";
+  } else if (currentDay === 1) {
+    currentDay = "Monday";
+  } else if (currentDay === 2) {
+    currentDay = "Tuesday";
+  } else if (currentDay === 3) {
+    currentDay = "Wednesday";
+  } else if (currentDay === 4) {
+    currentDay = "Thursday";
+  } else if (currentDay === 5) {
+    currentDay = "Friday";
+  } else if (currentDay === 6) {
+    currentDay = "Saturday";
+  }
+  console.log(currentTime)
+  console.log(currentDay)
+  query = "SELECT videoid FROM schedule WHERE timeend >= \""+currentTime+"\" AND timestart <= \""+currentTime+"\" AND day = \""+currentDay+"\""
+  connection.query(
+    query,
+    [currentTime, currentTime, currentDay],
+    (err, results) => {
+      console.log(results)
+      if (results.length > 0) {
+        console.log("Yay")
+        return res.json({ status: 200, message: results[0].videoid });
+      } else {
+        console.log("Nay")
+        return res.json({ status: 200, message: 0 });
+      }
+    }
+  );
+});
+
+async function getPathOfVideoById(id) {
+  return new Promise((resolve, reject) => {
+    const query = "SELECT path FROM content WHERE contentid = ?";
+    connection.query(query, [id], function (err, results) {
+      if (err) {
+        reject(err);
+      } else {
+        if (results.length > 0) {
+          resolve(results[0].path);
+        } else {
+          resolve("../../MEDIA/files/AgbuyaTV.mp4");
+        }
+      }
+    });
+  });
+}
+
+app.get("/getVideo/:id", async function (req, res) {
+    // Ensure there is a range given for the video
+    var range = req.headers.range;
+    if (!range) {
+      res.status(400).send("Requires Range header");
+    }
+    // get video stats (about 61MB)
+    var thePath = await getPathOfVideoById(Number(req.params.id))
+    const videoPath = __dirname+thePath
+    const videoSize = fs.statSync(videoPath).size;
+    // Parse Range
+    // Example: "bytes=32324-"
+    const CHUNK_SIZE = 10 ** 6; // 1MB
+    const start = Number(range.replace(/\D/g, ""));
+    const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+    // Create headers
+    const contentLength = end - start + 1;
+    const headers = {
+      "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+      "Accept-Ranges": "bytes",
+      "Content-Length": contentLength,
+      "Content-Type": "video/mp4",
+    };
+  
+    // HTTP Status 206 for Partial Content
+    res.writeHead(206, headers);
+  
+    // create video read stream for this particular chunk
+    const videoStream = fs.createReadStream(videoPath, { start, end });
+  
+    // Stream the video chunk to the client
+    videoStream.pipe(res);
 });
