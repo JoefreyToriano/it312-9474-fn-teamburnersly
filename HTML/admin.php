@@ -28,6 +28,5 @@
     </div>
     <?php include "footer.html"; ?>
     <script src="../JS/admin.js"></script>
-    <iframe src="../HTML/footer.html" width="100%" height="500px" frameborder="0"></iframe>
 </body>
 </html>

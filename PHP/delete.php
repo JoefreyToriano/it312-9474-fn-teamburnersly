@@ -4,7 +4,7 @@
     $query = "DELETE FROM users WHERE users.userid = $id";
     echo $query;
     if($db->query($query)){
-        header("Location:../HTML/admin.html");
+        header("Location:../HTML/admin.php");
     } else{
         echo "Not deleted";
     }

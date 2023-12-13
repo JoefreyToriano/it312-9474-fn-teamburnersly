@@ -66,7 +66,7 @@
                         $st->bind_param("ssssss", $lname, $fname, $username, $email, $password, $usertype);
                         $st->execute();
                         $st->close();
-                        header('Location:../HTML/admin.html');
+                        header('Location:../HTML/admin.php');
                     }
                 }
                 ?>

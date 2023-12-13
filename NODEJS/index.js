@@ -32,7 +32,7 @@ app.get("/", function (req, res) {
   res.render("loginCMS.ejs");
 });
 
-app.listen(8001, "localhost");
+app.listen(8001, "192.168.22.195");
 console.log("Listening at port 8001");
 
 app.post("/login", function (req, res) {
@@ -95,16 +95,20 @@ app.get("/contentManager", (req, res) => {
 });
 app.use("/files", express.static(path.join(__dirname, "MEDIA", "files")));
 app.use(express.static(path.join(__dirname, "MEDIA")));
+
 app.post("/upload", fileUpload({ createParentPath: true }), (req, res) => {
+  console.log("Gotten")
   if (req.session.user) {
     var files = req.files;
     Object.keys(files).forEach((key) => {
-      const relativeFilePath = path.join(
-        "../../MEDIA/files",
+      let relativeFilePath = path.join(
+        "../MEDIA/files",
         req.body["title"] + ".mp4"
       );
       const filePath = path.join(__dirname, relativeFilePath);
       files[key].mv(filePath);
+      relativeFilePath = path.join("../"+relativeFilePath)
+      console.log(relativeFilePath)
       connection.query(
         "INSERT INTO content (contentid, title, duration, timestamp, type, authorid, path) VALUES (NULL, ?,?, CURRENT_TIMESTAMP, ?, ?, ?)",
         [
