@@ -5,7 +5,9 @@ const fileUpload = require("express-fileupload");
 const fs = require("fs");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const io = require("socket.io");
+const socketIO = require("socket.io");
+var spawn = require('child_process');
+const http = require('http');
 
 var connection = sql.createConnection({
   host: "localhost",
@@ -15,6 +17,9 @@ var connection = sql.createConnection({
 });
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
+
 const mediaPath = path.join(__dirname, "..", "MEDIA", "files");
 app.use("/media", express.static(mediaPath));
 
@@ -29,10 +34,10 @@ app.use(
 app.set("view engine", "ejs");
 
 app.get("/", function (req, res) {
-  res.render("loginCMS.ejs");
+  res.render("test.ejs");
 });
 
-app.listen(8001, "192.168.22.195");
+app.listen(8001, "localhost");
 console.log("Listening at port 8001");
 
 app.post("/login", function (req, res) {
@@ -455,3 +460,40 @@ app.get("/getVideo/:id", async function (req, res) {
     // Stream the video chunk to the client
     videoStream.pipe(res);
 });
+
+io.on('connection', (socket) => {
+  console.log('A user connected');
+
+  // Handle video stream from the client
+  socket.on('stream', (data) => {
+    // Broadcast the stream to all clients
+    io.emit('stream', data);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  });
+});
+/*const ffmpeg = child_process.spawn("ffmpeg", [
+  "-f",
+  "lavfi",
+  "-i",
+  "anullsrc",
+  "-i",
+  "-",
+  "-c:v",
+  "libx264",
+  "-preset",
+  "veryfast",
+  "-tune",
+  "zerolatency",
+  "-c:a",
+  "aac",
+  "-f",
+  "flv",
+  `rtmp://192.168.56.107:1935/live/abc123`
+]) 
+
+io.on('data',(data){
+
+})*/

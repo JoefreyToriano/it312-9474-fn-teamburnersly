@@ -1,18 +1,35 @@
 <?php
-include("database.php");
-include("dataclasses.php");
-$query = "SELECT * FROM users";
-$stmt = $db->stmt_init();
-$stmt->prepare($query);
-$stmt->execute();
-$stmt->bind_result($id, $lname, $fname, $uname, $email, $pword, $utype);
-$users = array();
-while ($stmt->fetch()) {
-    $user = new user($id, $lname, $fname, $uname, $email, $pword, $utype);
-    array_push($users, $user);
-}
-$stmt->close();
-$json = json_encode($users);
-echo $json;
-
+    include("require_session.php");
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>User Management</title>
+</head>
+<body>
+    <iframe src="../HTML/banner.html" width="100%" height="100px" frameborder="0"></iframe>
+    <div class="mainContent">
+        <div id="contentBox">
+            <img src="../MEDIA/alice.jpeg">
+            <div class="controlBox">
+                <h1>Welcome Alice Celestine</h1>
+                <a href="add.php"><button>Add User</button></a>
+                <a href="logout.php"><button>Log Out</button></a>
+            </div>
+        </div>
+
+        <div class="filterPanel">
+            <input type="text" id="searchInput" placeholder="Search by Name, Username, or Email">
+            <button id="searchButton">Search</button>
+        </div>
+
+        <div id="userPanel"></div>
+    </div>
+    <?php include "../HTML/footer.html"; ?>
+    <script src="../JS/admin.js"></script>
+</body>
+</html>

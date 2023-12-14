@@ -1,4 +1,5 @@
 <?php
+include("require_session.php");
 include("database.php");
 include("dataclasses.php");
 $id = $_GET['id'];
@@ -79,7 +80,7 @@ $stmt->close();
             $st->bind_param("ssssss", $lname, $fname, $username, $email, $password, $usertype);
             $st->execute();
             $st->close();
-            header('Location:../HTML/admin.php');
+            header('Location: admin.php');
         }
     }
     ?>

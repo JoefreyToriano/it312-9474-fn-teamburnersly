@@ -1,3 +1,6 @@
+<?php
+    include("require_session.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,11 +43,12 @@
             <div id=message>
                 <?php
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    $fname = $_POST["fname"];
-                    $lname = $_POST["lname"];
-                    $username = $_POST["username"];
-                    $email = $_POST["email"];
-                    $password = $_POST["password"];
+
+                    $fname = filter_input(INPUT_POST,"fname",FILTER_SANITIZE_SPECIAL_CHARS);
+                    $lname = filter_input(INPUT_POST,"lname",FILTER_SANITIZE_SPECIAL_CHARS);
+                    $username = filter_input(INPUT_POST,"username",FILTER_SANITIZE_SPECIAL_CHARS);
+                    $email = filter_input(INPUT_POST,"email",FILTER_SANITIZE_SPECIAL_CHARS);
+                    $password = filter_input(INPUT_POST,"password",FILTER_SANITIZE_SPECIAL_CHARS);
                     $usertype = $_POST["usertype"];
 
                     if (empty($fname)) {
@@ -66,7 +70,7 @@
                         $st->bind_param("ssssss", $lname, $fname, $username, $email, $password, $usertype);
                         $st->execute();
                         $st->close();
-                        header('Location:../HTML/admin.php');
+                        header('Location: admin.php');
                     }
                 }
                 ?>

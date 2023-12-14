@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <video muted id="video" autoplay></video>
+    <button id="start" onclick="startStream()">Start Stream</button>
+    <button id="end" onclick="stopStream()">Stop Stream</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+    <script>
+      let mediaRecorder;
+      const socket = io('http://localhost:8001');
+
+      socket.on('connect', () => {
+        console.log('Connected to server');
+        startStream();
+      });
+
+      function startStream() {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then((stream) => {
+            const video = document.getElementById('video');
+            video.srcObject = stream;
+
+            // Log video track information
+            const videoTrack = stream.getVideoTracks()[0];
+            if (videoTrack) {
+              console.log('Video Track Settings:', videoTrack.getSettings());
+              console.log('Video Track Capabilities:', videoTrack.getCapabilities());
+            } else {
+              console.error('No video track found in the stream.');
+            }
+
+            // Send the stream to the server
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.ondataavailable = (event) => {
+              if (event.data.size > 0) {
+                socket.emit('stream', event.data);
+              }
+            };
+            mediaRecorder.start(1000);
+          })
+          .catch((error) => {
+            console.error('Error accessing webcam:', error);
+          });
+      }
+
+      function stopStream() {
+        if (mediaRecorder) {
+          mediaRecorder.stop();
+        }
+      }
+    </script>
+</body>
+</html>
