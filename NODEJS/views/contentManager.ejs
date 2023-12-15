@@ -1,64 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/cmsStyle.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/cmsStyle.css" />
     <title>Content Manager</title>
-</head>
-<body>
+  </head>
+  <body>
     <%- include('banner.ejs') %>
     <div class="container">
-        <aside class="sidebar">
-        </aside>
-        <section class="main-content">
-            <div class="live-video">
-                <% if (typeof videoPath !== 'undefined') { %>
-                    <video id="liveVideo" controls autoplay>
-                        <source src=" <%=videoPath %>" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                <% } else { %>
-                    <p>Select a video to play.</p>
-                <% } %>
-            </div>
-            <div class="video-controls">
-                <a href="/uploadPage"><button>Upload</button></a>
-                <a href="/videoList"><button>Show Videos</button></a>
-                <a href="/dayUpdate"><button>Update Schedule</button></a>
-                <a href="/logout"><button>Log Out</button></a>
-            </div>
-            <div class="historyheader">
-                <h1>Video History</h1>
-            </div>
-            <div class="schedule">
-                <div class ="history">
-                </div>
-            </div>
-        </section>
+      <aside class="sidebar">
+        <div class="video-controls">
+          <a href="/uploadPage"><button>Upload</button></a>
+          <a href="/videoList"><button>Show Videos</button></a>
+          <a href="/dayUpdate"><button>Update Schedule</button></a>
+          <div class="logout">
+            <a href="/logout"><button>Log Out</button></a>
+          </div>
+        </div>
+      </aside>
+      <section class="main-content">
+        <!--Show the video that is currently streaming -->
+        <div class="live-video">
+          <% if (typeof videoPath !== 'undefined') { %>
+          <video id="liveVideo" controls autoplay>
+            <source src=" <%=videoPath %>" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <% } else { %>
+          <p>Select a video to play.</p>
+          <% } %>
+        </div>
+        <!-- Add a container for the schedule -->
+        <!-- Schedule Container -->
+        <div class="schedule-container">
+          <h1>Weekly Streaming Schedule</h1>
+          <ul id="schedule-list">
+            <!-- Schedule items will be populated here -->
+          </ul>
+        </div>
+      </section>
+      <aside class="history-sidebar">
+        <!-- Video History Section -->
+        <div class="history-section">
+          <h1>Video History</h1>
+          <ul class="history-list">
+            <!-- Video history items will be populated here -->
+          </ul>
+        </div>
+      </aside>
     </div>
     <%- include('footer.ejs') %>
-</body>
+  </body>
 </html>
 <script>
-    function fetchVideoHistory() {
-        fetch('/videoHistoryList')
-            .then(response => response.json())
-            .then(videoHistory => {
-                console.log('Video History:', videoHistory); // Debug: Log out the fetched video history
-                const historyElement = document.querySelector('.history');
-                historyElement.innerHTML = ''; // Clear current history
-                videoHistory.forEach(entry => {
-                    console.log('Entry:', entry); // Debug: Log out each entry
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `${entry.name} - ${entry.timestamp}`;
-                    historyElement.appendChild(listItem);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching video history:', error);
-            });
-    }
+  // Fetch the schedule and display it as a list
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch("/scheduleList")
+      .then((response) => response.json())
+      .then((scheduleData) => {
+        const scheduleList = document.getElementById("schedule-list");
+        scheduleList.innerHTML = ""; // Clear existing list items
 
-    document.addEventListener('DOMContentLoaded', fetchVideoHistory);
+        scheduleData.forEach((event) => {
+          const listItem = document.createElement("li");
+          listItem.textContent = `Day: ${event.day}, Start: ${event.timestart}, End: ${event.timeend}, Video ID: ${event.videoid}`;
+          listItem.className = "schedule-item"; // Add a class for styling if needed
+          scheduleList.appendChild(listItem);
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching schedule:", error);
+      });
+  });
 </script>

@@ -1,332 +1,174 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* General Styles */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f4f4f6;
+  overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
-
-body, html {
-    height: 100%;
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-}
-
-/* Header style */
-.header {
-    background-color: #005792; 
-    color: white;
-    padding: 1rem;
-    font-size: 2rem;
-    text-align: center;
-}
-
-/* Main layout */
 .container {
-    display: flex;
-    flex-direction: row-reverse; /* Reverse the order of flex items */
-    padding: 20px;
+  display: flex;
 }
 
-
-/* Sidebar style */
+/* Sidebar Styles */
 .sidebar {
-    flex: 0 0 250px; /* sidebar width */
-    background-color: #003366; 
-    color: white;
-    padding: 120px;
-    /* Remove the order property */
+  width: 250px;
+  background-color: #2c3e50;
+  padding: 20px;
+  height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Add scroll for overflow content */
 }
 
-
-/* Main content style */
-.main-content {
-    flex: 1; /* take the remaining width */
-    padding: 20px;
-    background-color: #ffffff;
-    margin-right: 20px;
-}
-
-
-/* Schedule style */
-.schedule {
-    flex: 0 0 350px; /* schedule width */
-    background-color: #ffffff;
-    padding: 20px;
-    height: 600px; /* Fixed height for schedule */
-    overflow-y: auto; /* Add scroll for overflow */
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-}
-
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column; /* Stack the items on small screens */
-    }
-
-
-    .sidebar, .main-content, .schedule {
-        /* Reset flex and margins for a vertical stack */
-        flex: 0 0 100%;
-        max-width: 100%;
-        margin-right: 0;
-        margin-left: 0;
-    }
-
-
-    .main-content {
-        margin-bottom: 20px;
-    }
-}
-
-
-@media (max-width: 768px) {
-    .sidebar {
-        order: 1;
-        flex: 0 0 100%;
-        margin-bottom: 20px;
-    }
-
-
-    .main-content {
-        order: 2;
-        flex: 0 0 100%;
-        max-width: 100%;
-        margin-left: 0;
-        margin-right: 0; /* Remove margin to use full width */
-    }
-
-
-    .schedule {
-        order: 3;
-        flex: 0 0 100%;
-        max-width: 100%;
-        margin-left: 0;
-        margin-top: 20px;
-    }
-}
-
-
-/* Video controls style */
+/* Video Controls Styles */
 .video-controls {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: flex-start;
+  margin-top: 30px;
 }
-
 
 .video-controls a {
-    text-decoration: none;
-    margin-right: 10px;
+  text-decoration: none;
+  color: white;
+  margin-bottom: 10px;
 }
-
 
 .video-controls button {
-    background-color: #0f9df0;
-    color: white;
-    border: none;
-    padding: 20px 25px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+  width: 100%;
+  padding: 10px 0;
+  background-color: #34495e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-.header button {
-    position: absolute;
-    background-color: #ffffff;
-    color: rgb(48, 141, 228);
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 3px;
-    margin-left: -100px;
-    margin-top: 25px;
-    transition: background-color 0.3s ease;
-}
-.historyheader h1 {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    position: relative;
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    color: #0e5e76;
-    font-weight: 600;
-    font-size: 30px;    
+.logout button {
+  width: 100%;
+  padding: 10px 0;
+  background-color: #34495e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 250%;
 }
 .video-controls button:hover {
-    background-color: #0e5e76; /* Darken button color on hover */
-}
-.history {
-    color: rgb(48, 141, 228);
-    font-weight: 600;
-    font-size: 20px;
+  background-color: #4e6a85;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
-body, html {
-    height: 100%;
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-}
-
-/* Header style */
-.header {
-    background-color: #005792; 
-    color: white;
-    padding: 1rem;
-    font-size: 2rem;
-    text-align: center;
-}
-
-/* Main layout */
-.container {
-    display: flex;
-    flex-direction: row-reverse; /* Reverse the order of flex items */
-    padding: 20px;
-}
-
-
-/* Sidebar style */
-.sidebar {
-    flex: 0 0 250px; /* sidebar width */
-    background-color: #003366; 
-    color: white;
-    padding: 120px;
-    /* Remove the order property */
-}
-
-
-/* Main content style */
+/* Main Content Styles */
 .main-content {
-    flex: 1; /* take the remaining width */
-    padding: 20px;
-    background-color: #ffffff;
-    margin-right: 20px;
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #ecf0f1;
+  display: flex;
+  flex-direction: column;
 }
 
+.live-video {
+  margin-bottom: 20px;
+}
 
-/* Schedule style */
+/* Additional Styles */
+.historyheader,
+.live-video,
 .schedule {
-    flex: 0 0 350px; /* schedule width */
-    background-color: #ffffff;
-    padding: 20px;
-    height: 600px; /* Fixed height for schedule */
-    overflow-y: auto; /* Add scroll for overflow */
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
 }
 
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column; /* Stack the items on small screens */
-    }
-
-
-    .sidebar, .main-content, .schedule {
-        /* Reset flex and margins for a vertical stack */
-        flex: 0 0 100%;
-        max-width: 100%;
-        margin-right: 0;
-        margin-left: 0;
-    }
-
-
-    .main-content {
-        margin-bottom: 20px;
-    }
+/* Footer Styles (if needed) */
+footer {
+  background-color: #82c8eb;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+.history-sidebar {
+  width: 250px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  height: 100vh;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-
-@media (max-width: 768px) {
-    .sidebar {
-        order: 1;
-        flex: 0 0 100%;
-        margin-bottom: 20px;
-    }
-
-
-    .main-content {
-        order: 2;
-        flex: 0 0 100%;
-        max-width: 100%;
-        margin-left: 0;
-        margin-right: 0; /* Remove margin to use full width */
-    }
-
-
-    .schedule {
-        order: 3;
-        flex: 0 0 100%;
-        max-width: 100%;
-        margin-left: 0;
-        margin-top: 20px;
-    }
+.history-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.streaming-schedule td.scheduled-video {
+  background-color: #4e6a85 !important;
+  color: white;
 }
 
 
-/* Video controls style */
-.video-controls {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: flex-start;
+.history-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.history-list li:last-child {
+  border-bottom: none;
+}
+
+/* Adjusting the main container layout */
+.container {
+  display: flex;
+}
+
+/* Additional styles for better layout */
+
+.schedule-item {
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ddd;
+  list-style-type: none;
+}
+
+/* You might want to style the cell to indicate that it's clickable or has content */
+.streaming-schedule td {
+  background-color: #ecf0f1; /* Light gray background */
+  vertical-align: top; /* Align content to the top of the cell */
 }
 
 
-.video-controls a {
-    text-decoration: none;
-    margin-right: 10px;
+.schedule-container {
+  margin-top: 20px;
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.streaming-schedule {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-.video-controls button {
-    background-color: #0f9df0;
-    color: white;
-    border: none;
-    padding: 20px 25px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+.streaming-schedule thead th {
+  background-color: #2c3e50;
+  color: white;
 }
-.header button {
-    position: absolute;
-    background-color: #ffffff;
-    color: rgb(48, 141, 228);
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 3px;
-    margin-left: -100px;
-    margin-top: 25px;
-    transition: background-color 0.3s ease;
+
+.streaming-schedule th,
+.streaming-schedule td {
+  border: 1px solid #ddd;
+  padding: 5px;
+  text-align: center;
 }
-.historyheader h1 {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    position: relative;
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    color: #0e5e76;
-    font-weight: 600;
-    font-size: 30px;    
-}
-.video-controls button:hover {
-    background-color: #0e5e76; /* Darken button color on hover */
-}
-.history {
-    color: rgb(48, 141, 228);
-    font-weight: 600;
-    font-size: 20px;
-}
-#liveVideo {
-    width: 1080px;
-    height: 720px;
-    background-color: #000;
+
+.schedule-entry {
+  background-color: #4e6a85;
+  color: white;
+  margin: 2px;
+  padding: 5px;
 }

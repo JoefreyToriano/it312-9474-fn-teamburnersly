@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="loginCMS.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <title>User Management</title>
+    <title>AgbuyaTV</title>
 </head>
 <body>
     <%- include('banner.ejs') %>
     <div class="mainContent">
     
-    <video id="liveVideo" width="768 px" height="432 px" onended="reloadVideo()">
+    <video id="liveVideo" width="auto" height="auto" onended="reloadVideo()">
       <source id="ffff" src="/getVideo/0">
     </video>
     <iframe
@@ -24,6 +24,8 @@
     style="display:none"
     allowfullscreen>
     </iframe>    
+    
+     <!--No button in Viewer Side -->
     <div class="sideMenu">
       <a href="/goToLogIn" class="signin"><button>Login</button></a>
       <a><button onclick=startStream() class="signin">Show Scheduled Broadcast</button></a>
