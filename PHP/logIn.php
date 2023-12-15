@@ -1,6 +1,9 @@
 <?php
 include("database.php");
 session_start();
+if(isset($_SESSION["current_user"])){
+    header("Location: admin.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +17,7 @@ session_start();
 </head>
 
 <body>
+    
     <div class="container">
         <div class="image-wrapper">
             <img src="../MEDIA/Login.png" alt="Test Image">
@@ -77,7 +81,7 @@ session_start();
                                 } else {
                                     $_SESSION['current_user'] = new user($id, $lname, $fname, $uname, $email, $pword, $utype);
                                     $stmt->close();
-                                    header('Location:../HTML/admin.php');
+                                    header('Location:admin.php');
                                 }
                             }
                         } else {
@@ -90,5 +94,6 @@ session_start();
             </form>
         </div>
     </div>
+    
 </body>
 </html>

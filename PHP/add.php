@@ -1,3 +1,6 @@
+<?php
+    include("require_session.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,12 +13,12 @@
 </head>
 
 <body>
-    <button id="backbtn">
+    <a href="admin.php"><button id="backbtn">
         <div class="arrow-wrapper">
             <div class="arrow"></div>
         </div>
         Back
-    </button>
+    </button></a>
     <div class="form-container">
         <form action="add.php" method="post" id="addForm">
             <h1>Please enter the user details</h1>
@@ -40,11 +43,12 @@
             <div id=message>
                 <?php
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    $fname = $_POST["fname"];
-                    $lname = $_POST["lname"];
-                    $username = $_POST["username"];
-                    $email = $_POST["email"];
-                    $password = $_POST["password"];
+
+                    $fname = filter_input(INPUT_POST,"fname",FILTER_SANITIZE_SPECIAL_CHARS);
+                    $lname = filter_input(INPUT_POST,"lname",FILTER_SANITIZE_SPECIAL_CHARS);
+                    $username = filter_input(INPUT_POST,"username",FILTER_SANITIZE_SPECIAL_CHARS);
+                    $email = filter_input(INPUT_POST,"email",FILTER_SANITIZE_SPECIAL_CHARS);
+                    $password = filter_input(INPUT_POST,"password",FILTER_SANITIZE_SPECIAL_CHARS);
                     $usertype = $_POST["usertype"];
 
                     if (empty($fname)) {
@@ -61,32 +65,29 @@
                         echo "User type is required. Please select a user type.";
                     } else {
                         include("database.php");
-                        $query = "INSERT INTO users (userid, lname, fname, username, email, password, usertype) VALUES (NULL, ?, ?, ?, ?, ?, ?)";
-                        $st = $db->prepare($query);
-                        $st->bind_param("ssssss", $lname, $fname, $username, $email, $password, $usertype);
-                        $st->execute();
-                        $st->close();
-                        header('Location:../HTML/admin.php');
+                        $validate = "SELECT * FROM users WHERE username = ? AND usertype = ?";
+                        $stmt = $db->prepare($validate);
+                        $stmt->bind_param("ss",$username,$usertype);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        if($result->num_rows!=0){
+                            echo "<script>
+                                alert(\"User already exists with the same usertype\")
+                            </script>";
+                        } else {
+                            $query = "INSERT INTO users (userid, lname, fname, username, email, password, usertype) VALUES (NULL, ?, ?, ?, ?, ?, ?)";
+                            $st = $db->prepare($query);
+                            $st->bind_param("ssssss", $lname, $fname, $username, $email, $password, $usertype);
+                            $st->execute();
+                            $st->close();
+                            header('Location: admin.php');
+                        }
                     }
                 }
                 ?>
             </div>
         </form>
-
     </div>
-    <script>
-        // Select the button using its ID
-        var backButton = document.getElementById('backbtn');
-
-        // Add a click event listener to the button
-        backButton.addEventListener('click', function(event) {
-            // Prevent the default action of the button (if it's a submit button)
-            event.preventDefault();
-
-            // Use the browser's history API to go back
-            window.history.back();
-        });
-    </script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 function getUsers(searchTerm = "", sortField = null, sortOrder = null) {
-  var url = "../PHP/admin.php";
+  var url = "../PHP/getUserInfo.php";
   fetch(url)
     .then(function (response) {
       return response.text();
