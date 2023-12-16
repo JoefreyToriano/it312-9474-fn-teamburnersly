@@ -40,83 +40,24 @@
   <script src="/cms.js"></script>
 </html>
 <script>
-    function fetchVideoHistory() {
-        fetch('/videoHistoryList')
-            .then(response => response.json())
-            .then(videoHistory => {
-                console.log('Video History:', videoHistory); // Debug: Log out the fetched video history
-                const historyElement = document.querySelector('.history');
-                historyElement.innerHTML = ''; // Clear current history
-                videoHistory.forEach(entry => {
-                    console.log('Entry:', entry); // Debug: Log out each entry
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `${entry.name} - ${entry.timestamp}`;
-                    historyElement.appendChild(listItem);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching video history:', error);
-            });
-    }
+  // Fetch the schedule and display it as a list
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch("/scheduleList")
+      .then((response) => response.json())
+      .then((scheduleData) => {
+        const scheduleList = document.getElementById("schedule-list");
+        scheduleList.innerHTML = ""; // Clear existing list items
 
-    var streaming = false
-    var currentId = 0
-    video = document.getElementById("liveVideo")
-        async function startStream(){  
-            video = document.getElementById("liveVideo")
-            var interval
-            interval = setInterval(async () => {await checkIfSame();}, 1000);
-        }
-        
-        function switchToStatic(){
-            iframe = document.getElementById("streamVideo")
-            iframe.style.display="none"
-            video = document.getElementById("liveVideo")
-            video.style.display="block"
-            
-            video.load();
-            video.play();
-        }
-
-        async function checkIfSame() {
-
-            try {
-                // Make a POST request to '/currentVideo'
-                const response = await fetch('/currentVideo', {
-                    method: "POST"
-                });
-                response2 = await response.json()
-                console.log(response2) 
-                
-                if (response2.message != currentId) {
-                    currentId = response2.message
-                    if (response2.message == -1){
-                        startLiveStream()
-                        if(video.muted){
-                          video.muted = !video.muted
-                        }
-                    } else {
-                        const source = document.getElementById('ffff');
-                        source.setAttribute('src', '/getVideo/' + response2.message);
-                        switchToStatic()
-                    }
-                }
-        
-            } catch (error) {
-                // Handle any errors that occurred during the fetch
-                console.error('Error during fetch:', error);
-            }
-        }
-        
-        function reloadVideo(){
-            video = document.getElementById("liveVideo")
-            video.load();
-            video.play();
-        }
-    
-        /*window.onload = (event)=>{
-            startStream()
-        }*/
-    document.addEventListener('DOMContentLoaded', fetchVideoHistory);
+        scheduleData.forEach((event) => {
+          const listItem = document.createElement("li");
+          listItem.textContent = `Day: ${event.day}, Start: ${event.timestart}, End: ${event.timeend}, Video ID: ${event.videoid}`;
+          listItem.className = "schedule-item"; // Add a class for styling if needed
+          scheduleList.appendChild(listItem);
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching schedule:", error);
+      });
+  });
 </script>
 
