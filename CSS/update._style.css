@@ -20,7 +20,7 @@ form {
 }
 
 h1 {
-    color: #0077cc;
+    color: #052673;
     margin-bottom: 20px;
     text-align: center; /* Center align the title */
 }
@@ -40,12 +40,12 @@ input[type=text], select {
 }
 
 input[type=text]:focus, select:focus {
-    border-color: #0077cc;
+    border-color: #052673;
     outline: none;
 }
 
 button {
-    background-color: #0077cc;
+    background-color: #052673;
     color: white;
     padding: 12px 20px; /* Adjust button padding */
     border: none;
@@ -57,7 +57,7 @@ button {
 }
 
 button:hover {
-    background-color: #005fa3;
+    background-color: #073066;
 }
 #backbtn {
     position: absolute; 
@@ -65,9 +65,9 @@ button:hover {
     left: 20px;
     width: auto;
     padding: 10px 20px;
-  --primary-color: #007bff;
+  --primary-color: #052673;
   --secondary-color: #fff;
-  --hover-color: #0056b3;
+  --hover-color: #073066;
   --arrow-width: 10px;
   --arrow-stroke: 2px;
   box-sizing: border-box;

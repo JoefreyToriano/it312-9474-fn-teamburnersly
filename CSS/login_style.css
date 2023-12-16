@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #1c3a83; /* Adjust the color to match your design */
+    background-color: #073066; /* Adjust the color to match your design */
     color: #ffffff;
     margin: 0;
     padding: 0;
@@ -82,7 +82,7 @@ body {
 #login button {
  padding: 10px;
     border: none;
-    background-color: #1c3a83;
+    background-color: #073066;
     color: white;
     border-radius: 5px;
     cursor: pointer;
