@@ -6,7 +6,7 @@ const fs = require("fs");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const socketIO = require("socket.io");
-var spawn = require('child_process');
+var child = require('child_process');
 const http = require('http');
 
 var connection = sql.createConnection({
@@ -34,7 +34,7 @@ app.use(
 app.set("view engine", "ejs");
 
 app.get("/", function (req, res) {
-  res.render("test.ejs");
+  res.render("loginCMS.ejs");
 });
 
 app.listen(8001, "localhost");
@@ -59,7 +59,11 @@ app.post("/login", function (req, res) {
 });
 
 app.get("/uploadPage", function (req, res) {
-  res.render("uploadVideo");
+  if(req.session.user){
+    res.render("uploadVideo");
+  } else {
+    res.render("logIn")
+  }
 });
 
 app.get("/goToLogIn",function(req,res){
@@ -136,6 +140,7 @@ const videoHistoryDir = path.join(__dirname, "videoHistory");
 if (!fs.existsSync(videoHistoryDir)) {
   fs.mkdirSync(videoHistoryDir, { recursive: true });
 }
+
 app.get("/video/:contentid", (req, res) => {
   const contentid = req.params.contentid;
   connection.query(
@@ -266,10 +271,15 @@ app.get("/videoList", function (req, res) {
 });
 
 app.get("/dayUpdate", function (req, res) {
-  res.render("chooseDay");
+  if(req.session.user){
+    res.render("chooseDay");
+  } else {
+    res.render("logIn")
+  }
 });
 
 app.get("/updateSchedule/:day", function (req, res) {
+  if(req.session.user){
   var day = req.params.day;
   var query2 =
     "SELECT schedule.scheduleid, content.title, schedule.timestart, schedule.timeend FROM schedule INNER JOIN content ON content.contentid = schedule.videoid WHERE schedule.day = '" +
@@ -279,15 +289,22 @@ app.get("/updateSchedule/:day", function (req, res) {
     var result = results;
     res.render("showSched", { result, day });
   });
+``} else {
+  res.render("logIn")
+}
 });
 
 app.get("/addSchedulePage/:day", function (req, res) {
+  if(req.session.user){
   connection.query("SELECT * FROM content", function (err, results) {
     if (err) {
       throw err;
     }
     res.render("createSched", { day: req.params.day, results });
   });
+} else {
+  res.render("logIn")
+}
 });
 
 //viewer side
@@ -371,7 +388,18 @@ app.post("/deleteVideo/:id", function (req, res) {
   );
 });
 
+global.liveStreaming = false
+
+app.get("/toogleLiveStream", function(req,res){
+  global.liveStreaming = !global.liveStreaming
+})
+
+
+
 app.post("/currentVideo", (req, res) => {
+  if (global.liveStreaming){
+    return res.json({status: 200, message: -1})
+  }
   var date = new Date();
   var currentTime = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
   var currentDay = date.getDay();
@@ -391,19 +419,14 @@ app.post("/currentVideo", (req, res) => {
   } else if (currentDay === 6) {
     currentDay = "Saturday";
   }
-  console.log(currentTime)
-  console.log(currentDay)
   query = "SELECT videoid FROM schedule WHERE timeend >= \""+currentTime+"\" AND timestart <= \""+currentTime+"\" AND day = \""+currentDay+"\""
   connection.query(
     query,
     [currentTime, currentTime, currentDay],
     (err, results) => {
-      console.log(results)
       if (results.length > 0) {
-        console.log("Yay")
         return res.json({ status: 200, message: results[0].videoid });
       } else {
-        console.log("Nay")
         return res.json({ status: 200, message: 0 });
       }
     }
@@ -461,39 +484,6 @@ app.get("/getVideo/:id", async function (req, res) {
     videoStream.pipe(res);
 });
 
-io.on('connection', (socket) => {
-  console.log('A user connected');
-
-  // Handle video stream from the client
-  socket.on('stream', (data) => {
-    // Broadcast the stream to all clients
-    io.emit('stream', data);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-  });
-});
-/*const ffmpeg = child_process.spawn("ffmpeg", [
-  "-f",
-  "lavfi",
-  "-i",
-  "anullsrc",
-  "-i",
-  "-",
-  "-c:v",
-  "libx264",
-  "-preset",
-  "veryfast",
-  "-tune",
-  "zerolatency",
-  "-c:a",
-  "aac",
-  "-f",
-  "flv",
-  `rtmp://192.168.56.107:1935/live/abc123`
-]) 
-
-io.on('data',(data){
-
-})*/
+io.on("connection",(socket)=>{
+  const ffmpeg = child_process.spawn()
+})

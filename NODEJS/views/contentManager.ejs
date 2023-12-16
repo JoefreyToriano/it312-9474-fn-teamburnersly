@@ -25,15 +25,26 @@
             <div class="video-controls">
                 <a href="/uploadPage"><button>Upload</button></a>
                 <a href="/videoList"><button>Show Videos</button></a>
-                <a href="/dayUpdate"><button>Update Schedule</button></a>
+                <a href="/dayUpdate"><button>Show Schedule</button></a>
+                <button onclick="toogleStream()">Toogle Live</button>
                 <a href="/logout"><button>Log Out</button></a>
             </div>
             <div class="historyheader">
-                <h1>Video History</h1>
+                <h1>Video</h1>
             </div>
             <div class="schedule">
-                <div class ="history">
-                </div>
+                <video id="liveVideo2" width="896 px" height="504 px" autoplay muted loop>
+                    <source id="ffff" src="/getVideo/0">
+                  </video>
+                  <iframe
+                  id = "streamVideo"
+                  src= "http://192.168.56.107:8080/embed/video?autoplay=1"
+                  title="Owncast"
+                  height="504 px" width="896 px"
+                  referrerpolicy="origin"
+                  style="display:none"
+                  allowfullscreen>
+                  </iframe>
             </div>
         </section>
     </div>
@@ -61,4 +72,75 @@
     }
 
     document.addEventListener('DOMContentLoaded', fetchVideoHistory);
+
+    var streaming = false
+
+    function toogleStream(){
+        fetch("/toogleLiveStream")
+    }
+
+    var streaming = false
+    var currentId = 0
+        async function startStream(){  
+            var interval
+            interval = setInterval(async () => {await checkIfSame();}, 1000);
+        }
+        
+        function switchToStatic(){
+            iframe = document.getElementById("streamVideo")
+            iframe.style.display="none"
+            video = document.getElementById("liveVideo2")
+            video.style.display="block"
+            
+            video.load();
+            video.play();
+            //video.muted = !video.muted
+        }
+
+        async function checkIfSame() {
+            console.log("Checking");
+
+            try {
+                // Make a POST request to '/currentVideo'
+                const response = await fetch('/currentVideo', {
+                    method: "POST"
+                });
+                response2 = await response.json()
+                console.log(response2) 
+                
+                if (response2.message != currentId) {
+                    currentId = response2.message
+                    if (response2.message == -1){
+                        startLiveStream()
+                    } else {
+                        const source = document.getElementById('ffff');
+                        source.setAttribute('src', '/getVideo/' + response2.message);
+                        switchToStatic()
+                    }
+                }
+        
+            } catch (error) {
+                // Handle any errors that occurred during the fetch
+                console.error('Error during fetch:', error);
+            }
+        }
+
+        function startLiveStream(){
+          iframe = document.getElementById("streamVideo")
+          iframe.style.display="block"
+          video = document.getElementById("liveVideo2")
+          video.style.display="none"
+          video.pause()
+          streaming = false
+        }
+
+        function reloadVideo(){
+            video = document.getElementById("liveVideo2")
+            video.load();
+            video.play();
+        }
+    
+        window.addEventListener("load", (event) => {
+            startStream()
+        });
 </script>

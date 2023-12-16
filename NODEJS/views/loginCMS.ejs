@@ -12,47 +12,38 @@
     <%- include('banner.ejs') %>
     <div class="mainContent">
     
-    <video id="liveVideo" width="768 px" height="432 px" onended="reloadVideo()">
+    <video id="liveVideo" width="100%" height="432 px" autoplay muted loop>
       <source id="ffff" src="/getVideo/0">
     </video>
     <iframe
     id = "streamVideo"
-    src= "http://192.168.22.203:8080/embed/video"
+    src= "http://192.168.56.107:8080/embed/video?autoplay=1"
     title="Owncast"
-    height="432 px" width="768 px"
+    height="432 px" width="100%"
     referrerpolicy="origin"
     style="display:none"
     allowfullscreen>
     </iframe>    
-    <div class="sideMenu">
-      <a href="/goToLogIn" class="signin"><button>Login</button></a>
-      <a><button onclick=startStream() class="signin">Show Scheduled Broadcast</button></a>
-      <a><button onclick=startLiveStream() class="signin">Show Live Broadcast</button></a>
-    </div>
     </div>
     <script>
     var streaming = false
     var currentId = 0
-        async function startStream(){
+        async function startStream(){  
+            var interval
+            interval = setInterval(async () => {await checkIfSame();}, 1000);
+        }
+        
+        function switchToStatic(){
             iframe = document.getElementById("streamVideo")
             iframe.style.display="none"
             video = document.getElementById("liveVideo")
             video.style.display="block"
+            
             video.load();
             video.play();
-            var interval
-            if(streaming){
-                clearInterval(interval)
-                streaming = false
-                video.load();
-            } else {
-                interval = setInterval(async () => {
-                await checkIfSame();
-                }, 1000);
-                streaming = true
-            }
+            //video.muted = !video.muted
         }
-        
+
         async function checkIfSame() {
             console.log("Checking");
 
@@ -63,11 +54,16 @@
                 });
                 response2 = await response.json()
                 console.log(response2) 
+                
                 if (response2.message != currentId) {
-                const source = document.getElementById('ffff');
-                source.setAttribute('src', '/getVideo/' + response2.message);
-                currentId = response2.message
-                reloadVideo();
+                    currentId = response2.message
+                    if (response2.message == -1){
+                        startLiveStream()
+                    } else {
+                        const source = document.getElementById('ffff');
+                        source.setAttribute('src', '/getVideo/' + response2.message);
+                        switchToStatic()
+                    }
                 }
         
             } catch (error) {
@@ -81,6 +77,7 @@
           iframe.style.display="block"
           video = document.getElementById("liveVideo")
           video.style.display="none"
+          video.pause()
           streaming = false
         }
 
@@ -89,6 +86,10 @@
             video.load();
             video.play();
         }
+    
+        window.addEventListener("load", (event) => {
+            startStream()
+        });
     </script>
     <script src="loginCMS.js">
     </script>
