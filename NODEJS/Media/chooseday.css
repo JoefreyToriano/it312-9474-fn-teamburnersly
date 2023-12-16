@@ -1,72 +1,77 @@
-body, html {
-    height: 100%;
-    margin: 0;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* Set the font for the whole body */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: white;
+}
+
+/* Style the header */
+header {
+  background-color: #003366; /* A dark blue shade */
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Container for the day selection */
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+  width: 80%;
+  margin: 20px auto;
+  text-align: center;
 }
 
-.schedule {
-    width: 100%;
-}
-.schedule a {
-    text-decoration: none;
-    color: inherit; 
-}
+/* Style for the day bars */
 .dayBar {
-    background-color: #ffffff;
-    color: #3188e5;
-    padding: 20px;
-    margin: 2px 0;
-    text-align: center;
-    transition: background-color 0.3s ease;
-    display: block;
+  display: inline-block;
+  background-color: #007bff; /* A lighter blue shade */
+  color: white;
+  padding: 15px 30px;
+  margin: 10px;
+  border-radius: 20px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+  text-decoration: none; /* Remove underline from links */
 }
 
+/* Hover effect for day bars */
 .dayBar:hover {
-    background-color: #248ce1;
-    color: #ffffff;
+  background-color: #0056b3; /* A slightly darker blue shade for hover */
+  cursor: pointer;
 }
 
-h1 {
-    position: absolute;
-    color: #ffffff;
-    background-color: #000080; /* Navy blue to match the right half of the image */
-    width: 100%;
-    margin-top: -700px;
-    margin-left: -740px;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
-    
+/* Style the footer */
+footer {
+  background-color: #003366; /* Same as header */
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+/* Back button styling */
+.back-button {
+  background-color: #007bff; /* Light blue */
+  color: white;
+  padding: 10px 20px;
+ margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 100px;
+  position: absolute; /* Position the button absolutely */
+  top: 10px; /* Distance from the top */
+  left: 10px; /* Distance from the left */
+  z-index: 1000; /* Ensure it's above other elements */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
-.backButton:hover {
-    background-color: #0000ff; /* Lighter blue for hover effect */
+.back-button:hover {
+  background-color: #0056b3; /* Darker blue for hover */
 }
-/* Responsive design */
-@media (min-width: 768px) {
-    .container {
-        flex-direction: row;
-    }
-
-    h1 {
-        width: 50%;
-        margin-right: -50%; /* Aligns the title to the left half */
-    }
-}
-
-/* Further responsiveness for larger screens */
-@media (min-width: 1024px) {
-    .dayBar {
-        padding: 30px;
-        font-size: 1.5em;
-    }
-}
-

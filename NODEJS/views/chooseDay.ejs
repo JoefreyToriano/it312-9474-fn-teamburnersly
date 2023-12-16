@@ -1,25 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/chooseday.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/chooseday.css" />
     <title>Choose Week Day</title>
-</head>
-<body>
+  </head>
+  <body>
     <%- include('banner.ejs') %>
+      
     <div class="container">
-        <h1>Select a Day</h1>
-    <div class="schedule">
+            <button id="backButton" class="back-button">Back</button>
+      <h1>Select a Day</h1>
+      <div class="schedule">
         <a href="/updateSchedule/Monday"><div class="dayBar">Monday</div></a>
         <a href="/updateSchedule/Tuesday"><div class="dayBar">Tuesday</div></a>
-        <a href="/updateSchedule/Wednesday"><div class="dayBar">Wednesday</div></a>
-        <a href="/updateSchedule/Thursday"><div class="dayBar">Thursday</div></a>
+        <a href="/updateSchedule/Wednesday"
+          ><div class="dayBar">Wednesday</div></a
+        >
+        <a href="/updateSchedule/Thursday"
+          ><div class="dayBar">Thursday</div></a
+        >
         <a href="/updateSchedule/Friday"><div class="dayBar">Friday</div></a>
-        <a href="/updateSchedule/Saturday"><div class="dayBar">Saturday</div></a>
+        <a href="/updateSchedule/Saturday"
+          ><div class="dayBar">Saturday</div></a
+        >
         <a href="/updateSchedule/Sunday"><div class="dayBar">Sunday</div></a>
+      </div>
+
+
     </div>
-</div>
-<%- include('footer.ejs') %>
-</body>
+    <%- include('footer.ejs') %>
+    <script>
+      document
+        .getElementById("backButton")
+        .addEventListener("click", function () {
+          window.history.back();
+        });
+    </script>
+  </body>
 </html>

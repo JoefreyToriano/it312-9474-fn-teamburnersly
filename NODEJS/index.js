@@ -12,8 +12,8 @@ const http = require('http');
 var connection = sql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Going2Alice",
-  database: " agbuyatv",
+  password: "",
+  database: "agbuyatv",
 });
 
 const app = express();
@@ -37,7 +37,7 @@ app.get("/", function (req, res) {
   res.render("loginCMS.ejs");
 });
 
-app.listen(8001, "localhost");
+app.listen(8001, "192.168.1.4");
 console.log("Listening at port 8001");
 
 app.post("/login", function (req, res) {
@@ -66,9 +66,9 @@ app.get("/uploadPage", function (req, res) {
   }
 });
 
-app.get("/goToLogIn",function(req,res){
+app.get("/goToLogIn", function (req, res) {
   res.render("logIn");
-})
+});
 
 app.get("/logout", (req, res) => {
   req.session.destroy();
@@ -106,7 +106,7 @@ app.use("/files", express.static(path.join(__dirname, "MEDIA", "files")));
 app.use(express.static(path.join(__dirname, "MEDIA")));
 
 app.post("/upload", fileUpload({ createParentPath: true }), (req, res) => {
-  console.log("Gotten")
+  console.log("Gotten");
   if (req.session.user) {
     var files = req.files;
     Object.keys(files).forEach((key) => {
@@ -116,8 +116,8 @@ app.post("/upload", fileUpload({ createParentPath: true }), (req, res) => {
       );
       const filePath = path.join(__dirname, relativeFilePath);
       files[key].mv(filePath);
-      relativeFilePath = path.join("../"+relativeFilePath)
-      console.log(relativeFilePath)
+      relativeFilePath = path.join("../" + relativeFilePath);
+      console.log(relativeFilePath);
       connection.query(
         "INSERT INTO content (contentid, title, duration, timestamp, type, authorid, path) VALUES (NULL, ?,?, CURRENT_TIMESTAMP, ?, ?, ?)",
         [
@@ -302,10 +302,22 @@ app.get("/addSchedulePage/:day", function (req, res) {
     }
     res.render("createSched", { day: req.params.day, results });
   });
-} else {
-  res.render("logIn")
-}
 });
+//Query to get the schedule, and to be displayed in CMS
+app.get("/scheduleList", (req, res) => {
+  const query = "SELECT * FROM schedule ORDER BY day, timestart";
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error("Error fetching schedule:", error);
+      res.status(500).send("Server error");
+    } else {
+      console.log("Schedule Data:", results); // Log the data
+      res.json(results);
+    }
+  });
+});
+
+
 
 //viewer side
 app.get("/viewer", function (req, res) {
@@ -401,9 +413,10 @@ app.post("/currentVideo", (req, res) => {
     return res.json({status: 200, message: -1})
   }
   var date = new Date();
-  var currentTime = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+  var currentTime =
+    date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
   var currentDay = date.getDay();
-  
+
   if (currentDay === 0) {
     currentDay = "Sunday";
   } else if (currentDay === 1) {
@@ -424,14 +437,16 @@ app.post("/currentVideo", (req, res) => {
     query,
     [currentTime, currentTime, currentDay],
     (err, results) => {
+      console.log(results)
       if (results.length > 0) {
+        console.log("Yay")
         return res.json({ status: 200, message: results[0].videoid });
       } else {
+        console.log("Nay")
         return res.json({ status: 200, message: 0 });
       }
     }
-  );
-});
+  });
 
 async function getPathOfVideoById(id) {
   return new Promise((resolve, reject) => {
@@ -451,37 +466,37 @@ async function getPathOfVideoById(id) {
 }
 
 app.get("/getVideo/:id", async function (req, res) {
-    // Ensure there is a range given for the video
-    var range = req.headers.range;
-    if (!range) {
-      res.status(400).send("Requires Range header");
-    }
-    // get video stats (about 61MB)
-    var thePath = await getPathOfVideoById(Number(req.params.id))
-    const videoPath = __dirname+thePath
-    const videoSize = fs.statSync(videoPath).size;
-    // Parse Range
-    // Example: "bytes=32324-"
-    const CHUNK_SIZE = 10 ** 6; // 1MB
-    const start = Number(range.replace(/\D/g, ""));
-    const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
-    // Create headers
-    const contentLength = end - start + 1;
-    const headers = {
-      "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-      "Accept-Ranges": "bytes",
-      "Content-Length": contentLength,
-      "Content-Type": "video/mp4",
-    };
-  
-    // HTTP Status 206 for Partial Content
-    res.writeHead(206, headers);
-  
-    // create video read stream for this particular chunk
-    const videoStream = fs.createReadStream(videoPath, { start, end });
-  
-    // Stream the video chunk to the client
-    videoStream.pipe(res);
+  // Ensure there is a range given for the video
+  var range = req.headers.range;
+  if (!range) {
+    res.status(400).send("Requires Range header");
+  }
+  // get video stats (about 61MB)
+  var thePath = await getPathOfVideoById(Number(req.params.id));
+  const videoPath = __dirname + thePath;
+  const videoSize = fs.statSync(videoPath).size;
+  // Parse Range
+  // Example: "bytes=32324-"
+  const CHUNK_SIZE = 10 ** 6; // 1MB
+  const start = Number(range.replace(/\D/g, ""));
+  const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+  // Create headers
+  const contentLength = end - start + 1;
+  const headers = {
+    "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+    "Accept-Ranges": "bytes",
+    "Content-Length": contentLength,
+    "Content-Type": "video/mp4",
+  };
+
+  // HTTP Status 206 for Partial Content
+  res.writeHead(206, headers);
+
+  // create video read stream for this particular chunk
+  const videoStream = fs.createReadStream(videoPath, { start, end });
+
+  // Stream the video chunk to the client
+  videoStream.pipe(res);
 });
 
 io.on("connection",(socket)=>{
