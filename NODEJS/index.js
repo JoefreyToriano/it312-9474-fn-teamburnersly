@@ -12,8 +12,8 @@ const http = require('http');
 var connection = sql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
-  database: "agbuyatv",
+  password: "Going2Alice",
+  database: " agbuyatv",
 });
 
 const app = express();
@@ -37,7 +37,7 @@ app.get("/", function (req, res) {
   res.render("loginCMS.ejs");
 });
 
-app.listen(8001, "192.168.1.4");
+app.listen(8001, "localhost");
 console.log("Listening at port 8001");
 
 app.post("/login", function (req, res) {
@@ -302,7 +302,7 @@ app.get("/addSchedulePage/:day", function (req, res) {
     }
     res.render("createSched", { day: req.params.day, results });
   });
-});
+}});
 //Query to get the schedule, and to be displayed in CMS
 app.get("/scheduleList", (req, res) => {
   const query = "SELECT * FROM schedule ORDER BY day, timestart";
@@ -433,19 +433,13 @@ app.post("/currentVideo", (req, res) => {
     currentDay = "Saturday";
   }
   query = "SELECT videoid FROM schedule WHERE timeend >= \""+currentTime+"\" AND timestart <= \""+currentTime+"\" AND day = \""+currentDay+"\""
-  connection.query(
-    query,
-    [currentTime, currentTime, currentDay],
-    (err, results) => {
-      console.log(results)
+  connection.query(query,[currentTime, currentTime, currentDay],(err, results) => {
       if (results.length > 0) {
-        console.log("Yay")
         return res.json({ status: 200, message: results[0].videoid });
       } else {
-        console.log("Nay")
         return res.json({ status: 200, message: 0 });
       }
-    }
+    })
   });
 
 async function getPathOfVideoById(id) {

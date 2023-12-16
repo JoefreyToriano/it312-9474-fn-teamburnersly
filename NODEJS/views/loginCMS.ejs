@@ -11,9 +11,7 @@
 <body>
     <%- include('banner.ejs') %>
     <div class="mainContent">
-    
-    <video id="liveVideo" width="100%" height="432 px" autoplay muted loop>
-    <video id="liveVideo" width="auto" height="auto" onended="reloadVideo()">
+    <video id="liveVideo" width="100%" height="432 px" autoplay muted onended="reloadVideo()">
       <source id="ffff" src="/getVideo/0">
     </video>
     <iframe
@@ -46,7 +44,6 @@
         }
 
         async function checkIfSame() {
-            console.log("Checking");
 
             try {
                 // Make a POST request to '/currentVideo'

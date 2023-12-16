@@ -12,24 +12,12 @@
         <aside class="sidebar">
         </aside>
         <section class="main-content">
-            <div class="live-video">
-                <% if (typeof videoPath !== 'undefined') { %>
-                    <video id="liveVideo" controls autoplay>
-                        <source src=" <%=videoPath %>" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                <% } else { %>
-                    <p>Select a video to play.</p>
-                <% } %>
-            </div>
             <div class="video-controls">
                 <a href="/uploadPage"><button>Upload</button></a>
                 <a href="/videoList"><button>Show Videos</button></a>
                 <a href="/dayUpdate"><button>Update Schedule</button></a>
                 <a href="/logout"><button>Log Out</button></a>
-            </div>
-            <div class="historyheader">
-                <h1>Video History</h1>
+                <a href="/toogleLiveStream"><button>Log Out</button></a>
             </div>
             <div class="schedule">
                 <div class ="history">
