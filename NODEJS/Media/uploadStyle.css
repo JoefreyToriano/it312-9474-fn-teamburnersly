@@ -16,7 +16,7 @@ body {
 
 .uploadForm {
   background-color: #ffffff;
-  border: 3px solid #007bff;
+  border: 3px solid #052673;
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
@@ -25,7 +25,7 @@ body {
 }
 
 .title h2 {
-  color: #007bff;
+  color: #052673;
   margin-bottom: 30px;
   font-size: 24px;
 }
@@ -54,7 +54,7 @@ input[type="text"] {
 }
 
 .fileUpload label {
-  background-color: #007bff;
+  background-color: #052673;
   color: #fff;
   padding: 15px 30px;
   border-radius: 8px;
@@ -64,16 +64,16 @@ input[type="text"] {
 }
 
 .fileUpload label:hover {
-  background-color: #0056b3;
+  background-color: #073066;
 }
 .fileName {
   display: block;
   margin-top: 10px;
-  color: #007bff;
+  color: #052673;
   font-style: italic;
 }
 button {
-  background-color: #007bff;
+  background-color: #052673;
   color: white;
   border: none;
   border-radius: 8px;
@@ -86,7 +86,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #052673;
 }
 
 .backButton {
