@@ -11,7 +11,7 @@
 <body>
     <%- include('banner.ejs') %>
     <div class="mainContent">
-    <video id="liveVideo" width="100%" height="432 px" autoplay muted onended="reloadVideo()">
+    <video id="liveVideo"  width="1280 px" height="720 px" autoplay muted onended="reloadVideo()">
       <source id="ffff" src="/getVideo/0">
     </video>
     <iframe
@@ -22,7 +22,7 @@
     referrerpolicy="origin"
     style="display:none"
     allowfullscreen>
-    </iframe>    
+    </iframe>   
     </div>
     <script>
     var streaming = false

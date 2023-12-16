@@ -1,7 +1,6 @@
 /* Basic Reset */
 * {
     box-sizing: border-box;
-    margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
 }
@@ -12,14 +11,14 @@ body {
 }
 
 /* Main Content Styles */
-.mainContent {
+.mainContent {  
     width: 80%;
     margin: 0 auto;
     padding: 20px;
 }
 
 /* Content Box */
-#contentBox {
+#contentBox {   
     text-align: center;
     margin-bottom: 20px;
 }
@@ -31,7 +30,7 @@ body {
     margin-bottom: 10px;
 }
 
-.controlBox h1 {
+.controlBox h1 {    
     margin-bottom: 20px;
 }
 
@@ -51,7 +50,7 @@ body {
 }
 
 /* User Panel Styles */
-#userPanel {
+#userPanel {    
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: white;
@@ -141,6 +140,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 40px;
 }
 
 #videoPanel {
@@ -205,5 +205,52 @@ body {
 .videoInfoCon{
     display: flex;
     flex-direction: row;
+
+}
+.backbutton button{
+    position: absolute;
+    background-color: #1a7be4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    width: 80px;
+    margin-top: 30px;
+    margin-left: 900px;
+
+}
+.backbutton button:hover {
+    background-color: rgb(163, 161, 161);
+    cursor: pointer;
 }
 
+.backbutton2 button{
+    position: relative;
+    background-color: #1a7be4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    width: 80px;
+    margin-top: 10px;
+    margin-left: 900px;
+}
+.backbutton3 button{
+    position: relative;
+    background-color: #1a7be4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    width: 100px;
+    margin-top: 30px;
+}
+
+.backbutton3 button:hover {
+    background-color: rgb(163, 161, 161);
+    cursor: pointer;
+}
+.backbutton2 button:hover {
+    background-color: rgb(163, 161, 161);
+    cursor: pointer;
+}
