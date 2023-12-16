@@ -204,6 +204,7 @@ app.get("/video/:filename", (req, res) => {
     res.sendStatus(404);
   }
 });
+
 app.get("/playVideo", (req, res) => {
   const contentid = req.query.contentid;
   connection.query(
@@ -228,6 +229,7 @@ app.get("/playVideo", (req, res) => {
     }
   );
 });
+
 app.get("/videoHistoryList", function (req, res) {
   fs.readdir(videoHistoryDir, (err, files) => {
     if (err) {
