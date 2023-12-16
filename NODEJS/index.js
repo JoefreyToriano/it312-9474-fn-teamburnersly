@@ -12,8 +12,8 @@ const http = require('http');
 var connection = sql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Going2Alice",
-  database: " agbuyatv",
+  password: "",
+  database: "agbuyatv",
 });
 
 const app = express();

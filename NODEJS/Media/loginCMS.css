@@ -5,29 +5,12 @@ body {
   margin: 0;
   background-color: #41aae7;
   font-family:'Montserrat';
+  overflow-x: hidden;
 }
 
 .mainContent{
-  display: flex;
-  flex-direction: row;
-  margin: 10px;
+  display: absolute;
+  margin: auto;
+  padding: 20px;
 }
 
-.sideMenu{
-  width: 50%;
-  flex-direction: column;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.sideMenu button{
-  width: 100%;
-  margin: 10px;
-  border-radius: 25px;
-  height: 20px;
-}
-
-.sideMenu > button, .sideMenu > a{
-  width: 50%;
-}
