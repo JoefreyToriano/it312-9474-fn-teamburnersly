@@ -27,7 +27,9 @@
     <script>
     var streaming = false
     var currentId = 0
+    video = document.getElementById("liveVideo")
         async function startStream(){  
+            video = document.getElementById("liveVideo")
             var interval
             interval = setInterval(async () => {await checkIfSame();}, 1000);
         }
@@ -40,7 +42,6 @@
             
             video.load();
             video.play();
-            //video.muted = !video.muted
         }
 
         async function checkIfSame() {
@@ -85,11 +86,15 @@
             video.play();
         }
     
-        window.addEventListener("load", (event) => {
+        /*window.onload = (event)=>{
             startStream()
-        });
+        }*/
+
     </script>
     <script src="loginCMS.js">
+    </script>
+    <script src="viewer.js">
+
     </script>
     <%- include('footer.ejs') %>
     </body>

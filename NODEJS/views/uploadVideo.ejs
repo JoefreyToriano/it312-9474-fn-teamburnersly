@@ -44,7 +44,7 @@
             formData.append("video", video.files[0]);
             formData.append("title", title.value);
 
-            const response = await fetch("http://192.168.1.5:8001/upload", {
+            const response = await fetch("/upload", {
               method: "POST",
               body: formData,
             });

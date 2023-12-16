@@ -25,9 +25,6 @@ body {
 }
 
 /* Video Controls Styles */
-.video-controls {
-  margin-top: 30px;
-}
 
 .video-controls a {
   text-decoration: none;
@@ -38,12 +35,13 @@ body {
 .video-controls button {
   width: 100%;
   padding: 10px 0;
-  background-color: #34495e;
+  background-color: #004d9b;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-bottom: 5px;
 }
 .logout button {
   width: 100%;

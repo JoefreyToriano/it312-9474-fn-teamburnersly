@@ -11,7 +11,6 @@ body {
   display: flex;
   flex-direction: row;
   margin: 10px;
-  margin-top: 0px;
 }
 
 .sideMenu{
