@@ -208,16 +208,20 @@ body {
 
 }
 .backbutton button{
-    position: absolute;
+    
     background-color: #1a7be4;
     color: white;
     border: none;
     border-radius: 5px;
     height: 40px;
     width: 80px;
-    margin-top: 30px;
-    margin-left: 900px;
-
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+}
+.backbutton{
+    padding-top: 20px;
+    width: 100%;
 }
 .backbutton button:hover {
     background-color: rgb(163, 161, 161);
@@ -233,7 +237,11 @@ body {
     height: 40px;
     width: 80px;
     margin-top: 10px;
-    margin-left: 900px;
+}
+.backbutton2{
+        text-align: center;
+
+
 }
 .backbutton3 button{
     position: relative;
