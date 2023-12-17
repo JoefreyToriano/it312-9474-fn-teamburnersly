@@ -13,7 +13,7 @@ body {
 
 /* Style the header */
 header {
-  background-color: #003366; /* A dark blue shade */
+  background-color: #073066; /* A dark blue shade */
   color: white;
   text-align: center;
   padding: 20px 0;
@@ -29,7 +29,7 @@ header {
 /* Style for the day bars */
 .dayBar {
   display: inline-block;
-  background-color: #007bff; /* A lighter blue shade */
+  background-color: #052673; /* A lighter blue shade */
   color: white;
   padding: 15px 30px;
   margin: 10px;
@@ -40,7 +40,7 @@ header {
 
 /* Hover effect for day bars */
 .dayBar:hover {
-  background-color: #0056b3; /* A slightly darker blue shade for hover */
+  background-color: #052673; /* A slightly darker blue shade for hover */
   cursor: pointer;
 }
 
@@ -56,7 +56,7 @@ footer {
 }
 /* Back button styling */
 .back-button {
-  background-color: #007bff; /* Light blue */
+  background-color: #052673; /* Light blue */
   color: white;
   padding: 10px 20px;
  margin-left: 10px;
@@ -73,5 +73,5 @@ footer {
 }
 
 .back-button:hover {
-  background-color: #0056b3; /* Darker blue for hover */
+  background-color: #052673; /* Darker blue for hover */
 }

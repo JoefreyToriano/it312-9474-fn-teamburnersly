@@ -39,7 +39,7 @@ body {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff; /* Blue button */
+    background-color: #052673; /* Blue button */
     color: white;
     margin: 0 5px;
     cursor: pointer;
@@ -47,7 +47,7 @@ body {
 }
 
 .controlBox button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #073066; /* Darker blue on hover */
 }
 
 /* User Panel Styles */
@@ -70,11 +70,11 @@ body {
 #userPanel i {
 
     font-size: 16px;
-    color: #007bff;
+    color: #052673;
     cursor: pointer;
 }
 #userPanel i:hover {
-    color: #0056b3;
+    color: #073066;
 }
 #userPanel div:last-child {
 
@@ -86,7 +86,7 @@ body {
 }
 
 #userPanel > div:first-child {
-    background-color: #007bff; /* Blue header */
+    background-color: #052673; /* Blue header */
     color: white;
     font-weight: bold;
 }
